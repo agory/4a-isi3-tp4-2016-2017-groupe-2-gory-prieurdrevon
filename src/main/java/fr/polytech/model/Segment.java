@@ -5,8 +5,7 @@ import java.awt.*;
 /**
  * Created by p1511160 on 12/04/2017.
  */
-
- public class Segment {
+public class Segment {
     public Point ptStart, ptEnd;
     public Color color;
 
@@ -15,11 +14,15 @@ import java.awt.*;
         ptEnd = new Point(0,0);
     }
 
-    public void drawSegment(Graphics graph) {
-        if (graph==null)
-            return;
+    public Point getPtStart() {
+        return ptStart;
+    }
 
-        graph.setColor(color);
-        graph.drawLine(ptStart.x, ptStart.y, ptEnd.x, ptEnd.y);
+    public Point getPtEnd() {
+        return ptEnd;
+    }
+
+    public Color getColor() {
+        return color;
     }
 }
