@@ -14,6 +14,15 @@ public class Segment {
         ptEnd = new Point(0,0);
     }
 
+    public Segment(Point ptStart, Point ptEnd) {
+        this.ptStart = ptStart;
+        this.ptEnd = ptEnd;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     public Point getPtStart() {
         return ptStart;
     }

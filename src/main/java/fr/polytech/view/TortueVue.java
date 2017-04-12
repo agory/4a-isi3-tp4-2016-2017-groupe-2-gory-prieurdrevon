@@ -12,86 +12,16 @@ import java.util.Iterator;
 public class TortueVue {
 
     private Tortue tortue;
-    protected ArrayList<SegmentVue> listSegments; // Trace de la tortue
 
     public TortueVue(Tortue tortue) {
 
-        listSegments = new ArrayList<SegmentVue>();
         this.tortue = tortue;
     }
 
-    public void avancer(int dist) {
-        int newX = (int) Math.round(tortue.getX()+dist*Math.cos(tortue.getRatioDegRad()*tortue.getDir()));
-        int newY = (int) Math.round(tortue.getY()+dist*Math.sin(tortue.getRatioDegRad()*tortue.getDir()));
-
-        if (tortue.isCrayon()) {
-            SegmentVue seg = new SegmentVue();
-
-            seg.ptStart.x = tortue.getX();
-            seg.ptStart.y = tortue.getY();
-            seg.ptEnd.x = newX;
-            seg.ptEnd.y = newY;
-            seg.color = decodeColor(tortue.getColor());
-
-            listSegments.add(seg);
-        }
-
-        tortue.setX(newX);
-        tortue.setY(newY);
-    }
-
-    /** quelques classiques */
-
-    public void carre() {
-        for (int i=0;i<4;i++) {
-            avancer(100);
-            tortue.droite(90);
-        }
-    }
-
-    public void poly(int n, int a) {
-        for (int j=0;j<a;j++) {
-            avancer(n);
-            tortue.droite(360/a);
-        }
-    }
-
-    public void spiral(int n, int k, int a) {
-        for (int i = 0; i < k; i++) {
-            tortue.couleurSuivante();
-            avancer(n);
-            tortue.droite(360/a);
-            n = n+1;
-        }
-    }
-
-    protected Color decodeColor(int c) {
-        switch(c) {
-            case 0: return(Color.black);
-            case 1: return(Color.blue);
-            case 2: return(Color.cyan);
-            case 3: return(Color.darkGray);
-            case 4: return(Color.red);
-            case 5: return(Color.green);
-            case 6: return(Color.lightGray);
-            case 7: return(Color.magenta);
-            case 8: return(Color.orange);
-            case 9: return(Color.gray);
-            case 10: return(Color.pink);
-            case 11: return(Color.yellow);
-            default : return(Color.black);
-        }
-    }
-
-    public void drawTurtle (Graphics graph) {
+    public void draw (Graphics graph) {
         if (graph==null)
             return;
 
-        // Dessine les segments
-        for(Iterator it = listSegments.iterator(); it.hasNext();) {
-            SegmentVue seg = (SegmentVue) it.next();
-            seg.drawSegment(graph);
-        }
 
         //Calcule les 3 coins du triangle a partir de
         // la position de la tortue p

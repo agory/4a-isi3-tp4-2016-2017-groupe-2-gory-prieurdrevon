@@ -4,8 +4,11 @@ package fr.polytech.model;
 
 // package logo;
 
+import fr.polytech.view.SegmentVue;
+
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 
 /*************************************************************************
@@ -52,14 +55,29 @@ public class Tortue
         crayon = true;
     }
 
-    public void setPosition(int newX, int newY) {
-        x = newX;
-        y = newY;
+    public Optional<Segment> avancer(int dist) {
+        int newX = (int) Math.round(x+dist*Math.cos(ratioDegRad*dir));
+        int newY = (int) Math.round(y+dist*Math.sin(ratioDegRad*dir));
+        Optional<Segment> segment = Optional.empty();
+        if (this.isCrayon()) {
+            Point origin = new Point(x,y);
+            Point dest = new Point(newX,newY);
+
+            segment= Optional.of(new Segment(origin,dest));
+
+        }
+
+        this.x = newX;
+        this.y = newY;
+        return segment;
     }
 
 
 
-
+    public void setPosition(int newX, int newY) {
+        x = newX;
+        y = newY;
+    }
 
     public void droite(int ang) {
         dir = (dir + ang) % 360;
@@ -84,9 +102,6 @@ public class Tortue
     public void couleurSuivante() {
         couleur(coul+1);
     }
-
-
-
 
     public static int getRp() {
         return rp;
@@ -122,6 +137,25 @@ public class Tortue
 
     public void setY(int y) {
         this.y = y;
+    }
+
+
+    public Color decodeColor(int c) {
+        switch(c) {
+            case 0: return(Color.black);
+            case 1: return(Color.blue);
+            case 2: return(Color.cyan);
+            case 3: return(Color.darkGray);
+            case 4: return(Color.red);
+            case 5: return(Color.green);
+            case 6: return(Color.lightGray);
+            case 7: return(Color.magenta);
+            case 8: return(Color.orange);
+            case 9: return(Color.gray);
+            case 10: return(Color.pink);
+            case 11: return(Color.yellow);
+            default : return(Color.black);
+        }
     }
 }
 

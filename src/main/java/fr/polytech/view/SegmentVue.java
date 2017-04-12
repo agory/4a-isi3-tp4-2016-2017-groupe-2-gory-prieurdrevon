@@ -15,7 +15,7 @@ public class SegmentVue {
         this.segment = segment;
     }
 
-    public void drawSegment(Graphics graph) {
+    public void draw(Graphics graph) {
         if (graph == null)
             return;
 

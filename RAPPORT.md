@@ -20,7 +20,7 @@ Probléme lié au code :
 Probléme lié à la structure de code :
 
     - Responsabilité unique :
-        +   les classes gérent à la fois la logique metier et d'affichage
+        +  Les classes gérent à la fois la logique metier et d'affichage
             -> Solution utilisation du model MVC
         + Simple Logo jouent le rôle de controller et de view
    
