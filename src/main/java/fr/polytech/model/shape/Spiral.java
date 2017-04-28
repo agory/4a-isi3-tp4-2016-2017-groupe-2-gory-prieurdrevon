@@ -16,7 +16,7 @@ public class Spiral implements Shape{
     private int a;
     private int k;
 
-    public Spiral(int n, int a, int k) {
+    public Spiral(int n, int k, int a) {
         this.n = n;
         this.a = a;
         this.k = k;

@@ -55,9 +55,9 @@ public class Controller implements ActionListener {
         else if (c.equals("Proc1"))
             this.drawShape(new Square());
         else if (c.equals("Proc2"))
-            this.drawShape(new Octagon(8, this.getValueBox()));
+            this.drawShape(new Octagon(this.getValueBox(),8));
         else if (c.equals("Proc3"))
-            this.drawShape(new Spiral(6, this.getValueBox(), 10));
+            this.drawShape(new Spiral(this.getValueBox(),40 , 6));
 
 
         else if (c.equals("Effacer")) {
