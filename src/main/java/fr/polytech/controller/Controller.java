@@ -13,6 +13,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by gorya on 12/04/2017.
@@ -55,7 +57,7 @@ public class Controller implements ActionListener {
         else if (c.equals("Proc2"))
             this.drawShape(new Octagon(8, this.getValueBox()));
         else if (c.equals("Proc3"))
-            this.drawShape(new Spiral(6, this.getValueBox(),10));
+            this.drawShape(new Spiral(6, this.getValueBox(), 10));
 
 
         else if (c.equals("Effacer")) {
@@ -85,7 +87,6 @@ public class Controller implements ActionListener {
             final int v = Integer.parseInt(value);
             Optional<Segment> segment = current.avancer(v);
             segment.ifPresent(segment1 -> {
-                segment1.setColor(this.current.decodeColor(this.current.getColor()));
                 feuilleDessin.addSegment(segment1);
             });
         } catch (NumberFormatException ex) {
@@ -118,7 +119,8 @@ public class Controller implements ActionListener {
     }
 
     private void drawShape(Shape shape) {
-        this.feuilleDessin.addSegments(shape.draw(this.current).stream().map(segment -> segment.setColor(//TODO)));
+        final Tortue tortue = this.current;
+        this.feuilleDessin.addSegments(shape.draw(this.current));
     }
 
     public void createTurtle() {

@@ -62,9 +62,9 @@ public class Tortue
         if (this.isCrayon()) {
             Point origin = new Point(x,y);
             Point dest = new Point(newX,newY);
-
-            segment= Optional.of(new Segment(origin,dest));
-
+            Segment segment1 = new Segment(origin,dest);
+            segment1.setColor(this.decodeColor(this.getColor()));
+            segment= Optional.of(segment1);
         }
 
         this.x = newX;

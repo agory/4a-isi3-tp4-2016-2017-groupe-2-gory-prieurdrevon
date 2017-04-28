@@ -5,6 +5,7 @@ import fr.polytech.model.Tortue;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by gorya on 12/04/2017.
@@ -26,7 +27,8 @@ public class Spiral implements Shape{
         List<Segment> segments = new ArrayList<>();
         for (int i = 0; i < k; i++) {
             tortue.couleurSuivante();
-            tortue.avancer(n);
+            Optional<Segment> segment = tortue.avancer(n);
+            segment.ifPresent(segment1 -> segments.add(segment1));
             tortue.droite(360/a);
             n = n+1;
         }
