@@ -65,7 +65,6 @@ public class Controller implements ActionListener {
             this.createTurtle();
         } else if (c.equals("Quitter"))
             System.exit(0);
-
         this.layout.repaint();
     }
 

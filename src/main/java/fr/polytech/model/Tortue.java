@@ -1,10 +1,10 @@
 package fr.polytech.model;
 
 
-
 // package logo;
 
 import fr.polytech.view.SegmentVue;
+import javafx.beans.Observable;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -25,23 +25,31 @@ import java.util.Optional;
  **************************************************************************/
 
 
-public class Tortue
-{
+public class Tortue extends java.util.Observable {
 
 
-
-    protected static final int rp=10, rb=5; // Taille de la pointe et de la base de la fleche
+    protected static final int rp = 10, rb = 5; // Taille de la pointe et de la base de la fleche
     protected static final double ratioDegRad = 0.0174533; // Rapport radians/degres (pour la conversion)
 
 
-
     protected int x, y;
+
+    public void setDir(int dir) {
+        this.dir = dir;
+        this.setChanged();
+    }
+
     protected int dir;
     protected boolean crayon;
     protected int coul;
 
-    public void setColor(int n) {coul = n;}
-    public int getColor() {return coul;}
+    public void setColor(int n) {
+        coul = n;
+    }
+
+    public int getColor() {
+        return coul;
+    }
 
     public Tortue() {
         reset();
@@ -56,35 +64,34 @@ public class Tortue
     }
 
     public Optional<Segment> avancer(int dist) {
-        int newX = (int) Math.round(x+dist*Math.cos(ratioDegRad*dir));
-        int newY = (int) Math.round(y+dist*Math.sin(ratioDegRad*dir));
+        int newX = (int) Math.round(x + dist * Math.cos(ratioDegRad * dir));
+        int newY = (int) Math.round(y + dist * Math.sin(ratioDegRad * dir));
         Optional<Segment> segment = Optional.empty();
         if (this.isCrayon()) {
-            Point origin = new Point(x,y);
-            Point dest = new Point(newX,newY);
-            Segment segment1 = new Segment(origin,dest);
+            Point origin = new Point(x, y);
+            Point dest = new Point(newX, newY);
+            Segment segment1 = new Segment(origin, dest);
             segment1.setColor(this.decodeColor(this.getColor()));
-            segment= Optional.of(segment1);
+            segment = Optional.of(segment1);
         }
 
-        this.x = newX;
-        this.y = newY;
+        this.setX(newX);
+        this.setY(newY);
         return segment;
     }
 
 
-
     public void setPosition(int newX, int newY) {
-        x = newX;
-        y = newY;
+        this.setX(newX);
+        this.setY(newY);
     }
 
     public void droite(int ang) {
-        dir = (dir + ang) % 360;
+        this.setDir((dir + ang) % 360);
     }
 
     public void gauche(int ang) {
-        dir = (dir - ang) % 360;
+        this.setDir((dir - ang) % 360);
     }
 
     public void baisserCrayon() {
@@ -100,7 +107,7 @@ public class Tortue
     }
 
     public void couleurSuivante() {
-        couleur(coul+1);
+        couleur(coul + 1);
     }
 
     public static int getRp() {
@@ -133,28 +140,43 @@ public class Tortue
 
     public void setX(int x) {
         this.x = x;
+        this.setChanged();
     }
 
     public void setY(int y) {
         this.y = y;
+        this.setChanged();
     }
 
 
     public Color decodeColor(int c) {
-        switch(c) {
-            case 0: return(Color.black);
-            case 1: return(Color.blue);
-            case 2: return(Color.cyan);
-            case 3: return(Color.darkGray);
-            case 4: return(Color.red);
-            case 5: return(Color.green);
-            case 6: return(Color.lightGray);
-            case 7: return(Color.magenta);
-            case 8: return(Color.orange);
-            case 9: return(Color.gray);
-            case 10: return(Color.pink);
-            case 11: return(Color.yellow);
-            default : return(Color.black);
+        switch (c) {
+            case 0:
+                return (Color.black);
+            case 1:
+                return (Color.blue);
+            case 2:
+                return (Color.cyan);
+            case 3:
+                return (Color.darkGray);
+            case 4:
+                return (Color.red);
+            case 5:
+                return (Color.green);
+            case 6:
+                return (Color.lightGray);
+            case 7:
+                return (Color.magenta);
+            case 8:
+                return (Color.orange);
+            case 9:
+                return (Color.gray);
+            case 10:
+                return (Color.pink);
+            case 11:
+                return (Color.yellow);
+            default:
+                return (Color.black);
         }
     }
 }

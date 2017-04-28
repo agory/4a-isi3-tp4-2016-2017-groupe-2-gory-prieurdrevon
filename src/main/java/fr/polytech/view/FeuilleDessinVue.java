@@ -7,11 +7,13 @@ import fr.polytech.model.Tortue;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Iterator;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * Created by gorya on 12/04/2017.
  */
-public class FeuilleDessinVue extends JPanel{
+public class FeuilleDessinVue extends JPanel implements Observer{
     private FeuilleDessin feuilleDessin;
 
     public FeuilleDessinVue(FeuilleDessin feuilleDessin) {
@@ -45,5 +47,10 @@ public class FeuilleDessinVue extends JPanel{
             new SegmentVue(s).draw(
                     g);
         }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        this.repaint();
     }
 }

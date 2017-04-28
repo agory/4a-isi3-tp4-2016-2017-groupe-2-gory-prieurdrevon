@@ -20,7 +20,7 @@ import java.util.List;
  * @version 2.0
  */
 
-public class FeuilleDessin {
+public class FeuilleDessin extends Observable implements Observer {
     private List<Tortue> tortues; // la liste des tortues enregistrees
     private List<Segment> segments;
 
@@ -31,6 +31,8 @@ public class FeuilleDessin {
 
     public void addTortue(Tortue o) {
         tortues.add(o);
+        o.addObserver(this);
+        this.setChanged();
     }
 
     public void reset() {
@@ -40,10 +42,12 @@ public class FeuilleDessin {
 
     public void addSegment(Segment segment) {
         this.segments.add(segment);
+        this.setChanged();
     }
 
     public void addSegments(List<Segment> segments) {
         this.segments.addAll(segments);
+        this.setChanged();
     }
 
     public List<Tortue> getTortues() {
@@ -52,5 +56,10 @@ public class FeuilleDessin {
 
     public List<Segment> getSegments() {
         return segments;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        this.setChanged();
     }
 }
