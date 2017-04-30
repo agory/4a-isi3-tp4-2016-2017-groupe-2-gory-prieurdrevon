@@ -34,7 +34,7 @@ fonctionnalité pourra être supprimée lors du *refactoring*).
 *Proposer un refactoring du code de cette application de sorte à appliquer
 l’architecture MVC en trois couches : Modèle, Vue, Contrôleur (pas de fusion du
 contrôleur et de la vue). Pour cela, vous devez réorganiser les éléments de l’application
-en trois package. Les changements dans le modèle métier (déplacements de la tortue)
+en trois package. Les changements dans le modèle métier (déplacements de la turtle)
 devront être répercutés dans l’affichage. L’utilisation de l’IHM (boutons) entrainera des
 changements dans le modèle métier en passant par le contrôleur.*
 
@@ -55,15 +55,15 @@ les dépendances entre package.
 ### Gestion de plusieurs tortues
 
 On souhaite pouvoir visualiser plusieurs tortues dans la feuille de dessin. L’ajout d’une
-nouvelle tortue se fera par l’intermédiaire d’un bouton de l’IHM ; la nouvelle tortue
+nouvelle turtle se fera par l’intermédiaire d’un bouton de l’IHM ; la nouvelle turtle
 aura la couleur sélectionnée dans le JTextField. Un clic souris sur une des tortues la
-sélectionnera comme la tortue courante. La tortue courante est la tortue commandée
+sélectionnera comme la turtle courante. La turtle courante est la turtle commandée
 par les boutons de déplacement de l’IHM.
 
 #### Question 4
 
 Améliorer l’application de sorte à pouvoir ajouter différentes tortues et
-sélectionner par un clic de souris la tortue courante.
+sélectionner par un clic de souris la turtle courante.
 
 ### Tortues autonomes
 
@@ -81,7 +81,7 @@ Ajouter ces fonctionnalités à votre application.
 
 On souhaite enfin utiliser l’application avec les tortues pour simuler le comportement de
 flocking que l’on peut observer chez certains animaux comme les poissons ou les oiseaux.
-Une tortue "intelligente" a une distance de vue et un angle de vue qui définissent son
+Une turtle "intelligente" a une distance de vue et un angle de vue qui définissent son
 champ de vision. Son comportement est le suivant :
  * Essaye d’aller à la vitesse moyenne des tortues qui sont dans son champ de vision *(Cohesion)*
  * Va dans la direction moyenne des tortues qui sont dans son champ de vision *(Alignment)*

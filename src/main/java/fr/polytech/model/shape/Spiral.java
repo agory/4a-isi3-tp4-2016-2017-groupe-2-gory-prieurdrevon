@@ -1,7 +1,7 @@
 package fr.polytech.model.shape;
 
-import fr.polytech.model.Segment;
-import fr.polytech.model.Tortue;
+import fr.polytech.model.element.Segment;
+import fr.polytech.model.element.Turtle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +23,13 @@ public class Spiral implements Shape{
     }
 
     @Override
-    public List<Segment> draw(Tortue tortue) {
+    public List<Segment> draw(Turtle turtle) {
         List<Segment> segments = new ArrayList<>();
         for (int i = 0; i < k; i++) {
-            tortue.couleurSuivante();
-            Optional<Segment> segment = tortue.avancer(n);
+            turtle.couleurSuivante();
+            Optional<Segment> segment = turtle.avancer(n);
             segment.ifPresent(segment1 -> segments.add(segment1));
-            tortue.droite(360/a);
+            turtle.droite(360/a);
             n = n+1;
         }
         return segments;

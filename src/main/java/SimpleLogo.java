@@ -26,23 +26,4 @@ import java.awt.event.WindowEvent;
 
 public class SimpleLogo extends JFrame  {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

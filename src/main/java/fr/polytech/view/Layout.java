@@ -1,7 +1,8 @@
 package fr.polytech.view;
 
-import fr.polytech.model.FeuilleDessin;
-import fr.polytech.model.Tortue;
+import fr.polytech.controller.Controller;
+import fr.polytech.model.DrawingSheet;
+import fr.polytech.view.element.DrawingSheetView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,14 +18,21 @@ public class Layout extends JFrame {
     private JComboBox inputColor;
 
 
-    private FeuilleDessinVue feuille;
-    private Tortue courante;
-    private ActionListener controller;
+    private DrawingSheetView feuille;
+    private Controller controller;
 
-    public Layout(ActionListener controller,FeuilleDessin feuilleDessin) {
+    public Layout(Controller controller,DrawingSheet drawingSheet) {
         super("un logo tout simple");
         this.controller = controller;
-        this.feuille = new FeuilleDessinVue(feuilleDessin);
+        this.feuille = new DrawingSheetView(drawingSheet);
+
+        this.feuille.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                controller.mouseClickPerformed(e);
+            }
+        });
         logoInit();
 
         addWindowListener(new WindowAdapter() {
@@ -106,6 +114,7 @@ public class Layout extends JFrame {
         addButton(toolBar, "Gauche", "Gauche 45", null);
         addButton(toolBar, "Lever", "Lever Crayon", null);
         addButton(toolBar, "Baisser", "Baisser Crayon", null);
+        addButton(toolBar, "Add", "Ajouter Turtle", null);
 
         String[] colorStrings = {"noir", "bleu", "cyan","gris fonce","rouge",
                 "vert", "gris clair", "magenta", "orange",

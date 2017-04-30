@@ -1,7 +1,7 @@
 package fr.polytech.model.shape;
 
-import fr.polytech.model.Segment;
-import fr.polytech.model.Tortue;
+import fr.polytech.model.element.Segment;
+import fr.polytech.model.element.Turtle;
 
 import java.util.List;
 
@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface Shape {
 
-    List<Segment> draw(Tortue tortue);
+    List<Segment> draw(Turtle turtle);
 }

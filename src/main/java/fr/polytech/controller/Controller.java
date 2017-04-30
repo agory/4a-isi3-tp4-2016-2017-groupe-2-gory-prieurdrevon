@@ -1,20 +1,22 @@
 package fr.polytech.controller;
 
-import fr.polytech.model.FeuilleDessin;
-import fr.polytech.model.Segment;
-import fr.polytech.model.Tortue;
+import fr.polytech.model.DrawingSheet;
+import fr.polytech.model.element.Element;
+import fr.polytech.model.element.Segment;
+import fr.polytech.model.element.Turtle;
 import fr.polytech.model.shape.Octagon;
 import fr.polytech.model.shape.Shape;
 import fr.polytech.model.shape.Spiral;
 import fr.polytech.model.shape.Square;
+import fr.polytech.model.utils.ColorService;
 import fr.polytech.view.Layout;
 
-import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Optional;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
+import java.awt.event.MouseEvent;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by gorya on 12/04/2017.
@@ -22,12 +24,11 @@ import java.util.stream.Collectors;
 public class Controller implements ActionListener {
 
     private Layout layout;
-    private Tortue current;
-    private FeuilleDessin feuilleDessin;
+    private DrawingSheet drawingSheet;
 
     public Controller() {
-        this.feuilleDessin = new FeuilleDessin();
-        this.layout = new Layout(this, this.feuilleDessin);
+        this.drawingSheet = new DrawingSheet();
+        this.layout = new Layout(this, this.drawingSheet);
         this.layout.setVisible(true);
         this.createTurtle();
     }
@@ -37,6 +38,7 @@ public class Controller implements ActionListener {
      */
     public void actionPerformed(ActionEvent e) {
         String c = e.getActionCommand();
+        System.out.println(c);
         // actions des boutons du haut
         if (c.equals("Avancer"))
             this.avancerAction();
@@ -45,27 +47,39 @@ public class Controller implements ActionListener {
         else if (c.equals("Gauche"))
             this.gaucheAction();
         else if (c.equals("Lever"))
-            current.leverCrayon();
+            this.drawingSheet.getCurrentTurtle().leverCrayon();
         else if (c.equals("comboBoxChanged"))
             this.colorChangeAction();
         else if (c.equals("Baisser"))
-            current.baisserCrayon();
-            // actions des boutons du bas
-
+            this.drawingSheet.getCurrentTurtle().baisserCrayon();
+        else if (c.equals("Add"))
+            this.addTurtle();
         else if (c.equals("Proc1"))
             this.drawShape(new Square());
         else if (c.equals("Proc2"))
             this.drawShape(new Octagon(this.getValueBox(),8));
         else if (c.equals("Proc3"))
             this.drawShape(new Spiral(this.getValueBox(),40 , 6));
-
-
         else if (c.equals("Effacer")) {
-            this.feuilleDessin.reset();
+            this.drawingSheet.reset();
             this.createTurtle();
         } else if (c.equals("Quitter"))
             System.exit(0);
         this.layout.repaint();
+    }
+
+    public void mouseClickPerformed(MouseEvent mouseEvent) {
+        List<Element> elements = this.drawingSheet.getElementsByOrigin(mouseEvent.getPoint(),10);
+        Iterator it = elements.iterator();
+        boolean found = false;
+        // recuperation de la premier turtle
+        while (it.hasNext() && !found ) {
+            Element element = (Element) it.next();
+            if(element instanceof Turtle) {
+                found = true;
+                this.drawingSheet.setCurrentTurtle((Turtle) element);
+            }
+        }
     }
 
     private int getValueBox() {
@@ -78,15 +92,18 @@ public class Controller implements ActionListener {
         }
     }
 
+    private void addTurtle() {
+        this.createTurtle();
+    }
+
 
     private void avancerAction() {
-        System.out.println("command avancer");
         String value = this.layout.getInputValue();
         try {
             final int v = Integer.parseInt(value);
-            Optional<Segment> segment = current.avancer(v);
+            Optional<Segment> segment = this.drawingSheet.getCurrentTurtle().avancer(v);
             segment.ifPresent(segment1 -> {
-                feuilleDessin.addSegment(segment1);
+                drawingSheet.addSegment(segment1);
             });
         } catch (NumberFormatException ex) {
             System.err.println("ce n'est pas un nombre : " + value);
@@ -97,7 +114,7 @@ public class Controller implements ActionListener {
         String value = this.layout.getInputValue();
         try {
             int v = Integer.parseInt(value);
-            current.droite(v);
+            this.drawingSheet.getCurrentTurtle().droite(v);
         } catch (NumberFormatException ex) {
             System.err.println("ce n'est pas un nombre : " + value);
         }
@@ -107,29 +124,27 @@ public class Controller implements ActionListener {
         String value = this.layout.getInputValue();
         try {
             int v = Integer.parseInt(value);
-            current.gauche(v);
+            this.drawingSheet.getCurrentTurtle().gauche(v);
         } catch (NumberFormatException ex) {
             System.err.println("ce n'est pas un nombre : " + value);
         }
     }
 
     private void colorChangeAction() {
-        current.setColor(this.layout.getInputColor());
+        ColorService colorService = ColorService.getInstance();
+        this.drawingSheet.getCurrentTurtle().setColor(colorService.decode(this.layout.getInputColor()));
     }
 
     private void drawShape(Shape shape) {
-        final Tortue tortue = this.current;
-        this.feuilleDessin.addSegments(shape.draw(this.current));
+        this.drawingSheet.addSegments(shape.draw(this.drawingSheet.getCurrentTurtle()));
     }
 
     public void createTurtle() {
-        Tortue tortue = new Tortue();
-
-        // Deplacement de la tortue au centre de la feuille
-        tortue.setPosition(500 / 2, 400 / 2);
-
-        this.current = tortue;
-        this.feuilleDessin.addTortue(tortue);
+        Turtle turtle = new Turtle();
+        // Deplacement de la turtle au centre de la feuille
+        turtle.setPosition(500 / 2, 400 / 2);
+        this.drawingSheet.setCurrentTurtle(turtle);
+        this.drawingSheet.addTortue(turtle);
     }
 
 }

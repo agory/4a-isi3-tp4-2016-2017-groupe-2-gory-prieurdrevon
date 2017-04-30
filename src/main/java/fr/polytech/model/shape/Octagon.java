@@ -1,7 +1,7 @@
 package fr.polytech.model.shape;
 
-import fr.polytech.model.Segment;
-import fr.polytech.model.Tortue;
+import fr.polytech.model.element.Segment;
+import fr.polytech.model.element.Turtle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +20,12 @@ public class Octagon implements Shape {
     }
 
     @Override
-    public List<Segment> draw(Tortue tortue) {
+    public List<Segment> draw(Turtle turtle) {
         List<Segment> segments = new ArrayList<>();
         for (int j=0;j<a;j++) {
-            Optional<Segment> segment = tortue.avancer(n);
+            Optional<Segment> segment = turtle.avancer(n);
             segment.ifPresent(segment1 -> segments.add(segment1));
-            tortue.droite(360/a);
+            turtle.droite(360/a);
         }
         return segments;
     }
