@@ -1,6 +1,9 @@
 package fr.polytech;
 
 import fr.polytech.controller.Controller;
+import fr.polytech.controller.IAController;
+import fr.polytech.controller.UserController;
+import fr.polytech.view.SelectionMode;
 
 import javax.swing.*;
 
@@ -12,7 +15,20 @@ public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable(){
             public void run(){
-                Controller controller = new Controller();
+                SelectionMode selectionMode = new SelectionMode();
+                int mode = selectionMode.selection();
+                Controller controller;
+                switch (mode) {
+                    case 0 :
+                        controller = new UserController();
+                        break;
+                    case 1 :
+                        controller = new IAController();
+                        break;
+                }
+
+                System.out.println(mode);
+
             }
         });
     }

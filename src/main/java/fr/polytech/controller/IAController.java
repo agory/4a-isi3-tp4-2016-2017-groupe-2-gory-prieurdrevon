@@ -1,6 +1,7 @@
 package fr.polytech.controller;
 
 import fr.polytech.model.DrawingSheet;
+import fr.polytech.model.agent.Action.Action;
 import fr.polytech.view.LayoutIA;
 
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ public class IAController extends Controller {
     void init() {
         this.drawingSheet = new DrawingSheet();
         this.layout = new LayoutIA(this, this.drawingSheet);
+
     }
 
     /**
@@ -22,12 +24,16 @@ public class IAController extends Controller {
         String c = e.getActionCommand();
         System.out.println(c);
         // actions des boutons du haut
-
         if (c.equals("Effacer")) {
             this.drawingSheet.reset();
         } else if (c.equals("Quitter"))
             System.exit(0);
 
+        this.layout.repaint();
+    }
+
+    public void IAAction(Action action) {
+        action.run();
         this.layout.repaint();
     }
 }

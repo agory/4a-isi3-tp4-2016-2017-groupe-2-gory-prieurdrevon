@@ -23,8 +23,6 @@ import java.util.List;
  * Created by gorya on 12/04/2017.
  */
 public class UserController extends Controller {
-
-
     @Override
     void init() {
         this.drawingSheet = new DrawingSheet();
