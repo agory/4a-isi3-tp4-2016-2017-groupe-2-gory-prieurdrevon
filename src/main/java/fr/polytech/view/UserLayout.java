@@ -14,13 +14,13 @@ import java.awt.event.MouseEvent;
 /**
  * Created by gorya on 12/04/2017.
  */
-public class LayoutUser extends Layout {
+public class UserLayout extends Layout {
     public static final Dimension VGAP = new Dimension(1,5);
     public static final Dimension HGAP = new Dimension(5,1);
 
     private ToolBar toolBar;
 
-    public LayoutUser(UserController userController, DrawingSheet drawingSheet) {
+    public UserLayout(UserController userController, DrawingSheet drawingSheet) {
         super(userController,drawingSheet);
     }
 

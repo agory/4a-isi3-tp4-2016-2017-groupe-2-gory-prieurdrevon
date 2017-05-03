@@ -11,9 +11,8 @@ import fr.polytech.view.element.TurtleView;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Iterator;
-import java.util.Observable;
-import java.util.Observer;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by gorya on 12/04/2017.
@@ -35,13 +34,15 @@ public class DrawingSheetView extends JPanel implements Observer,ElementView{
         draw(g);
     }
 
-    public void draw(Graphics g) {
-        this.drawingSheet.getElements().forEach(element -> {
-            if(element instanceof Turtle)
-                new TurtleView((Turtle) element).draw(g);
-            if(element instanceof Segment)
-                new SegmentView((Segment) element).draw(g);
-        });
+    public synchronized void draw(Graphics g)  {
+        List<Element> elements = this.drawingSheet.getElements();
+        for (int i = 0; i< elements.size();i++) {
+            if(elements.get(i) instanceof Turtle)
+                new TurtleView((Turtle) elements.get(i)).draw(g);
+            if(elements.get(i) instanceof Segment)
+                new SegmentView((Segment) elements.get(i)).draw(g);
+        }
+
 
     }
 

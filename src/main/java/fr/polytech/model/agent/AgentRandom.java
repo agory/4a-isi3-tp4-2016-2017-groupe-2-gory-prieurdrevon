@@ -8,6 +8,8 @@ import fr.polytech.model.agent.Action.TurnRight;
 import fr.polytech.model.element.Turtle;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -18,19 +20,26 @@ public class AgentRandom extends Agent{
         super(drawingSheet,turtle);
     }
 
-    protected Action compute() {
+    protected List<Action> compute() {
         Random random = new Random();
-        int number = random.nextInt(100);
+        List<Action> actions = new ArrayList<>();
+        int number = random.nextInt(3);
         if(number > 3)
             number = 0;
         switch (number) {
             case 0:
-                return new MoveForward(1/*random.nextInt(360)*/);
+                actions.add(new MoveForward(1));
+                break;
             case 1:
-                return new TurnLeft(random.nextInt(360));
+                actions.add(new TurnLeft(3));
+                break;
             case 2:
-                return new TurnRight(random.nextInt(360));
+                actions.add(new TurnRight(3));
+                break;
+            default:
+                actions.add(new MoveForward(2));
+                break;
         }
-        return new MoveForward(random.nextInt(360));
+        return actions;
     }
 }

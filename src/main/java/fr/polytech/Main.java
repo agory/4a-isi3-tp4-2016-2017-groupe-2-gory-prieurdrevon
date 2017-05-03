@@ -1,6 +1,7 @@
 package fr.polytech;
 
 import fr.polytech.controller.Controller;
+import fr.polytech.controller.FlockingController;
 import fr.polytech.controller.IAController;
 import fr.polytech.controller.UserController;
 import fr.polytech.view.SelectionMode;
@@ -25,10 +26,10 @@ public class Main {
                     case 1 :
                         controller = new IAController();
                         break;
+                    case 2 :
+                        controller = new FlockingController();
+                        break;
                 }
-
-                System.out.println(mode);
-
             }
         });
     }

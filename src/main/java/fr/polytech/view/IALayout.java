@@ -11,8 +11,8 @@ import java.awt.*;
 /**
  * Created by gorya on 03/05/2017.
  */
-public class LayoutIA extends Layout {
-    public LayoutIA(IAController iaController, DrawingSheet drawingSheet) {
+public class IALayout extends Layout {
+    public IALayout(IAController iaController, DrawingSheet drawingSheet) {
         super(iaController, drawingSheet);
     }
 

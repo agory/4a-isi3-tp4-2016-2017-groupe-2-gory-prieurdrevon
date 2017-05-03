@@ -80,4 +80,17 @@ public class DrawingSheet extends Observable implements Observer {
                 )
                 .collect(Collectors.toList());
     }
+
+    public List<Turtle> getTurtles(){
+        List<Turtle> turtles = new ArrayList<>();
+        List<Element> elements = getElements();
+        Element element;
+        for (int i = 0; i < elements.size();i++) {
+            element =  elements.get(i);
+            if (element instanceof Turtle) {
+                turtles.add((Turtle) element);
+            }
+        }
+        return turtles;
+    }
 }

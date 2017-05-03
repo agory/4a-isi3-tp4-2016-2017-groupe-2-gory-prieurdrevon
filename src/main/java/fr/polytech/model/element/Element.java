@@ -4,6 +4,7 @@ import fr.polytech.model.utils.ColorService;
 
 import java.awt.*;
 import java.util.Observable;
+import java.util.Random;
 
 /**
  * Created by gorya on 30/04/2017.
@@ -29,7 +30,8 @@ public abstract class Element extends Observable {
 
     public Element() {
         ColorService colorService = ColorService.getInstance();
-        this.setColor(colorService.decode(0));
+
+        this.setColor(colorService.decode((new Random()).nextInt(11)));
     }
 
     public void setColor(Color color) {

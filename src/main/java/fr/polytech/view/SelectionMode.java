@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 public class SelectionMode {
 
     public int selection() {
-        Object[] choices = {"contrôlé", "aléatoire"};
+        Object[] choices = {"Contrôlé", "Aléatoire","Flocking"};
         int input = JOptionPane.showOptionDialog(null, "Mode d'exécution des tortues:",
                 "Mode tortues", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null,// Use
                 choices, // Array of choices

@@ -3,6 +3,7 @@ package fr.polytech.model;
 import com.sun.org.apache.xpath.internal.SourceTree;
 import fr.polytech.model.DrawingSheet;
 import fr.polytech.model.element.Segment;
+import fr.polytech.model.utils.MathTools;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -39,35 +40,39 @@ public class ToroidalDrawingSheet extends DrawingSheet {
         return height;
     }
 
+    // Pas trés fonctionnel
     private int computeMiddleSegmentY(Point origin, Point dest) {
-        return (int)floor(origin.getY() + (origin.getY()-dest.getY())*origin.getX()/abs(dest.getX()-origin.getX()));
+        return (int)floor(origin.getY() + (origin.getY()-dest.getY()) * origin.getX()/(1 +abs(  dest.getX()-origin.getX())));
     }
 
+    // Pas trés fonctionnel
     private int computeMiddleSegmentX(Point origin, Point dest) {
-        return (int) floor(origin.getX() + (origin.getX()-dest.getX())*origin.getY()/abs(dest.getY()-origin.getY()));
+        return (int) floor(origin.getX() + (origin.getX()-dest.getX())*origin.getY()/(1 +abs(  dest.getY()-origin.getY())));
     }
+
+
     private void checkSegment(Segment segment) {
         Point orig = segment.getOrigin();
         Point dest = segment.getDest();
         if (dest.getX() < 0){
             int midY = computeMiddleSegmentY(orig,dest) ;
             addSegment(new Segment(orig, new Point(0, midY)));
-            addSegment(new Segment(new Point(getHeight(), midY), new Point((int)dest.getX() % getHeight(), (int)dest.getY())));
+            addSegment(new Segment(new Point(getWidth(), midY), new Point(MathTools.modulo((int)dest.getX(),getWidth()), (int)dest.getY())));
         }
-        else if (dest.getX() > getHeight()){
+        else if (dest.getX() > getWidth()){
             int midY = computeMiddleSegmentY(orig,dest) ;
             addSegment(new Segment(orig, new Point(getHeight(), midY)));
-            addSegment(new Segment(new Point(0, midY), new Point((int)dest.getX() % getWidth(), (int)dest.getY())));
+            addSegment(new Segment(new Point(0, midY), new Point(MathTools.modulo((int)dest.getX(),getWidth()), (int)dest.getY())));
         }
         else if (dest.getY() < 0){
             int midX = computeMiddleSegmentX(orig,dest);
             addSegment(new Segment(orig, new Point(midX, 0)));
-            addSegment(new Segment(new Point(midX, getWidth()), new Point((int)dest.getX(), (int)dest.getY() % getWidth())));
+            addSegment(new Segment(new Point(midX, getHeight()), new Point((int)dest.getX(), MathTools.modulo((int)dest.getY() , getHeight()))));
         }
-        else if (dest.getY() > getWidth()){
+        else if (dest.getY() > getHeight()){
             int midX = computeMiddleSegmentX(orig,dest);
             addSegment(new Segment(orig, new Point(midX, getWidth())));
-            addSegment(new Segment(new Point(midX, 0), new Point((int)dest.getX(), (int)dest.getY() % getWidth())));
+            addSegment(new Segment(new Point(midX, 0), new Point((int)dest.getX(), MathTools.modulo((int)dest.getY() , getHeight()))));
         }
         else{
             super.addSegment(segment);

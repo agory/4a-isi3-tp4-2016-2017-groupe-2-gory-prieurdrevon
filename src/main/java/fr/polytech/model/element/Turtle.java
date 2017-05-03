@@ -26,7 +26,9 @@ public class Turtle extends Element {
 
 
     public Turtle() {
-        reset();
+        this.setOrigin(0,0);
+        dir = -90;
+        crayon = true;
     }
 
     public void reset() {
@@ -48,11 +50,6 @@ public class Turtle extends Element {
         }
         this.setOrigin(newX,newY);
         return segment;
-    }
-
-
-    public void setPosition(int newX, int newY) {
-        this.setOrigin(newX,newY);
     }
 
     public void setDir(int dir) {

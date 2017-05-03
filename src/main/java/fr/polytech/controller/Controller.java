@@ -2,9 +2,7 @@ package fr.polytech.controller;
 
 import fr.polytech.model.DrawingSheet;
 import fr.polytech.view.Layout;
-import fr.polytech.view.LayoutUser;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**

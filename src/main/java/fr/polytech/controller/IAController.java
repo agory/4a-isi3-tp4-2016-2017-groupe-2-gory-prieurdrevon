@@ -1,15 +1,11 @@
 package fr.polytech.controller;
 
-import fr.polytech.model.DrawingSheet;
 import fr.polytech.model.ToroidalDrawingSheet;
-import fr.polytech.model.agent.Action.Action;
 import fr.polytech.model.agent.Agent;
 import fr.polytech.model.agent.AgentRandom;
 import fr.polytech.model.element.ToroidalTurtle;
 import fr.polytech.model.element.Turtle;
-import fr.polytech.view.LayoutIA;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
+import fr.polytech.view.IALayout;
 
 import java.awt.event.ActionEvent;
 import java.util.Observer;
@@ -18,13 +14,16 @@ import java.util.Observer;
  * Created by gorya on 03/05/2017.
  */
 public class IAController extends Controller implements Observer {
+
+    private static int NBAGENT = 1;
+
     @Override
-    void init() {
+    protected void init() {
         ToroidalDrawingSheet toroidalDrawingSheet= new ToroidalDrawingSheet();
         toroidalDrawingSheet.setHeight(400);
         toroidalDrawingSheet.setWidth(600);
         this.drawingSheet = toroidalDrawingSheet;
-        this.layout = new LayoutIA(this, this.drawingSheet);
+        this.layout = new IALayout(this, this.drawingSheet);
         this.startIA();
     }
 
@@ -43,15 +42,17 @@ public class IAController extends Controller implements Observer {
         this.layout.repaint();
     }
 
-    private void startIA() {
+    protected void startIA() {
         ((ToroidalDrawingSheet)this.drawingSheet).drawLimit();
-        for (int i = 0; i < 1; i++){
+        for (int i = 0; i < NBAGENT; i++){
             launchIa();
         }
     }
 
-    private void launchIa() {
+    protected void launchIa() {
         Turtle turtle = new ToroidalTurtle((ToroidalDrawingSheet) this.drawingSheet);
+        turtle.leverCrayon();
+        turtle.droite(90);
         this.drawingSheet.addTortue(turtle);
         Agent agent = new AgentRandom(this.drawingSheet,turtle);
         agent.addObserver(this);

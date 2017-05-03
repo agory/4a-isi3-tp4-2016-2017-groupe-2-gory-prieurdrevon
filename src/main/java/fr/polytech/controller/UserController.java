@@ -9,12 +9,9 @@ import fr.polytech.model.shape.Shape;
 import fr.polytech.model.shape.Spiral;
 import fr.polytech.model.shape.Square;
 import fr.polytech.model.utils.ColorService;
-import fr.polytech.view.Layout;
-import fr.polytech.view.LayoutUser;
+import fr.polytech.view.UserLayout;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.List;
@@ -26,7 +23,7 @@ public class UserController extends Controller {
     @Override
     void init() {
         this.drawingSheet = new DrawingSheet();
-        this.layout = new LayoutUser(this, this.drawingSheet);
+        this.layout = new UserLayout(this, this.drawingSheet);
         this.createTurtle();
     }
 
@@ -139,13 +136,13 @@ public class UserController extends Controller {
     public void createTurtle() {
         Turtle turtle = new Turtle();
         // Deplacement de la turtle au centre de la feuille
-        turtle.setPosition(500 / 2, 400 / 2);
+        turtle.setOrigin(500 / 2, 400 / 2);
         this.drawingSheet.setCurrentTurtle(turtle);
         this.drawingSheet.addTortue(turtle);
     }
 
-    public LayoutUser getLayout() {
-        return (LayoutUser) this.layout;
+    public UserLayout getLayout() {
+        return (UserLayout) this.layout;
     }
 
 }
