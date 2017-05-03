@@ -12,8 +12,15 @@ public class ToroidalTurtle extends Turtle {
     private ToroidalDrawingSheet drawingSheet;
 
     public ToroidalTurtle(ToroidalDrawingSheet drawingSheet) {
-        super();
         this.drawingSheet = drawingSheet;
+        reset();
+    }
+
+    public void reset() {
+        System.out.println(this.drawingSheet);
+        this.setOrigin(300,200);
+        dir = -90;
+        crayon = true;
     }
 
     @Override
@@ -22,8 +29,9 @@ public class ToroidalTurtle extends Turtle {
         int newY = (int) Math.round(this.getY() + dist * Math.sin(ratioDegRad * dir));
         Optional<Segment> segment = Optional.empty();
         if (this.isCrayon()) {
-            Point origin = new Point(this.getX(), this.getY());
             Point dest = new Point(newX, newY);
+            Point origin = new Point(this.getX(), this.getY());
+
             Segment segment1 = new Segment(origin, dest);
             segment1.setColor(this.getColor());
             segment = Optional.of(segment1);

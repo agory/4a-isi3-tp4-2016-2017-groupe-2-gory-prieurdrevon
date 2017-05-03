@@ -29,7 +29,6 @@ public abstract class Layout extends JFrame {
         getContentPane().setLayout(new BorderLayout(10,10));
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        this.createFeuille();
         init();
 
 
@@ -47,7 +46,7 @@ public abstract class Layout extends JFrame {
 
     public abstract void init();
 
-    private void createFeuille() {
+    protected void createFeuille() {
         feuille.setBackground(Color.white);
         feuille.setSize(new Dimension(600,400));
         feuille.setPreferredSize(new Dimension(600,400));

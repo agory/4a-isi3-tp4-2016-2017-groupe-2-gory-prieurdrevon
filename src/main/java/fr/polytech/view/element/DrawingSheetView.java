@@ -36,18 +36,18 @@ public class DrawingSheetView extends JPanel implements Observer,ElementView{
     }
 
     public void draw(Graphics g) {
-        for(Iterator it = drawingSheet.getElements().iterator(); it.hasNext();) {
-            Element element = (Element) it.next();
+        this.drawingSheet.getElements().forEach(element -> {
             if(element instanceof Turtle)
                 new TurtleView((Turtle) element).draw(g);
             if(element instanceof Segment)
                 new SegmentView((Segment) element).draw(g);
-        }
+        });
+
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        this.repaint();
+
     }
 
 }

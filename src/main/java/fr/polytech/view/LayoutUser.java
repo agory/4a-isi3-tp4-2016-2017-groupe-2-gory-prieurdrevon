@@ -66,13 +66,6 @@ public class LayoutUser extends Layout {
         getContentPane().add(buttonPanel,"North");
     }
 
-    private void createFeuille() {
-        feuille.setBackground(Color.white);
-        feuille.setSize(new Dimension(600,400));
-        feuille.setPreferredSize(new Dimension(600,400));
-
-        getContentPane().add(feuille,"Center");
-    }
 
     public String getInputValue(){
         return this.toolBar.getInputValue();
