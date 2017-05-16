@@ -33,11 +33,18 @@ public class MinkFields {
                 turtles.put(turtle,distOptional.getAsDouble());
         });
 
-        return turtles.entrySet().stream().filter(this::isVisibleTurtle).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
+        return turtles.entrySet().stream()
+                .filter(this::isVisibleTurtle)
+                .filter(this::checkAngle)
+                .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
     }
 
     private boolean isVisibleTurtle(Map.Entry<Turtle,Double> entry) {
         return entry.getValue() < distanceMax;
+    }
+
+    private boolean checkAngle(Map.Entry<Turtle,Double> entry) {
+        return true;
     }
 
 
