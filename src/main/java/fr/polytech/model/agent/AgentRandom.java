@@ -37,7 +37,7 @@ public class AgentRandom extends Agent{
                 actions.add(new TurnRight(3));
                 break;
             default:
-                actions.add(new MoveForward(2));
+                actions.add(new MoveForward(0));
                 break;
         }
         return actions;

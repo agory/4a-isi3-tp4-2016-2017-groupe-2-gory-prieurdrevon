@@ -27,7 +27,6 @@ public class MinkFields {
     public Map<Turtle,Double> getVisibleTurtles() {
         Map<Turtle,Double> turtles = new HashMap<>();
 
-
         this.turtles.forEach(turtle -> {
             OptionalDouble distOptional = computeDistanceEuclidienne(this.turtle, turtle).stream().mapToDouble((i) -> i).min();
             if(distOptional.isPresent())
@@ -57,6 +56,9 @@ public class MinkFields {
         dists.add(Math.sqrt(Math.pow(turtle.getX() - (turtle1.getX() + this.sheet.getWidth()), 2) + Math.pow(turtle.getY() - (turtle1.getY() + this.sheet.getHeight()), 2)));
         return dists;
     }
+
+
+
 
 
 }

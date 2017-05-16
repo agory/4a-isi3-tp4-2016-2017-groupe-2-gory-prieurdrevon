@@ -8,25 +8,25 @@ import fr.polytech.model.agent.Action.TurnLeft;
 import fr.polytech.model.agent.Action.TurnRight;
 import fr.polytech.model.element.Turtle;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by gorya on 5/3/17.
  */
 public class AgentFlocking extends AgentRandom {
+    private static final int ANGLE = 0;
+    private static final int DIST_MAX = 100;
+    private static final int DIST_MIN = 10;
 
     private MinkFields minkFields;
 
     public AgentFlocking(DrawingSheet drawingSheet, Turtle turtle) {
         super(drawingSheet, turtle);
-        this.minkFields = new MinkFields((ToroidalDrawingSheet)drawingSheet,turtle,0,50);
+        this.minkFields = new MinkFields((ToroidalDrawingSheet)drawingSheet,turtle,ANGLE,DIST_MAX);
     }
 
     protected List<Action> compute() {
-        List<Turtle> turtles = new ArrayList<>();
-        turtles.addAll(minkFields.getVisibleTurtles().keySet());
+        Map<Turtle,Double> turtles = minkFields.getVisibleTurtles();
         if(turtles.size() > 0) {
             return flocking(turtles);
         } else
@@ -34,13 +34,17 @@ public class AgentFlocking extends AgentRandom {
     }
 
 
-    protected List<Action> flocking(List<Turtle> turtles) {
+    protected List<Action> flocking(Map<Turtle,Double> turtles) {
+        boolean slow = false;
         List<Action> actions = new ArrayList<>();
         Turtle turtle;
         int dir = this.turtle.getDir();
-        for (int i = 0; i < turtles.size();i++) {
-            turtle = turtles.get(i);
+        for (Map.Entry<Turtle,Double> entry : turtles.entrySet()) {
+            turtle = entry.getKey();
             dir += turtle.getDir();
+            if(entry.getValue() < DIST_MIN) {
+                slow = true;
+            }
         }
 
         dir = dir / (turtles.size() +1);
@@ -49,7 +53,7 @@ public class AgentFlocking extends AgentRandom {
             actions.add(new TurnRight(diff));
         else
             actions.add(new TurnLeft(-diff));
-        actions.add(new MoveForward(1));
+        actions.add(new MoveForward((slow)?1:2));
 
         return actions;
     }
