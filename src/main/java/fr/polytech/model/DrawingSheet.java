@@ -29,19 +29,27 @@ public class DrawingSheet extends Observable implements Observer {
 
     }
 
-    public void addTortue(Turtle o) {
-        elements.add(o);
-        o.addObserver(this);
-        this.setChanged();
+    public void addTortue(Turtle turtle) {
+        this.addElement(turtle);
+        turtle.addObserver(this);
     }
 
     public void reset() {
         elements.clear();
     }
 
-    public void addSegment(Segment segment) {
+    public void addElement(Element segment) {
         this.elements.add(segment);
         this.setChanged();
+    }
+
+    public void addElements(List<Element> segment) {
+        this.elements.addAll(elements);
+        this.setChanged();
+    }
+
+    public void addSegment(Segment segment) {
+        this.addElement(segment);
     }
 
     public void addSegments(List<Segment> segments) {
@@ -67,26 +75,26 @@ public class DrawingSheet extends Observable implements Observer {
     }
 
     public List<Element> getElementsByOrigin(Point point) {
-        return getElementsByOrigin(point,0);
+        return getElementsByOrigin(point, 0);
     }
 
     public List<Element> getElementsByOrigin(Point point, double diff) {
         return this.getElements().stream()
                 .filter(element ->
                         (element.getOrigin().getX() < point.getX() + diff)
-                        && (element.getOrigin().getX() > point.getX() - diff)
-                        && (element.getOrigin().getY() < point.getY() + diff)
-                        && (element.getOrigin().getY() > point.getY() - diff)
+                                && (element.getOrigin().getX() > point.getX() - diff)
+                                && (element.getOrigin().getY() < point.getY() + diff)
+                                && (element.getOrigin().getY() > point.getY() - diff)
                 )
                 .collect(Collectors.toList());
     }
 
-    public List<Turtle> getTurtles(){
+    public List<Turtle> getTurtles() {
         List<Turtle> turtles = new ArrayList<>();
         List<Element> elements = getElements();
         Element element;
-        for (int i = 0; i < elements.size();i++) {
-            element =  elements.get(i);
+        for (int i = 0; i < elements.size(); i++) {
+            element = elements.get(i);
             if (element instanceof Turtle) {
                 turtles.add((Turtle) element);
             }

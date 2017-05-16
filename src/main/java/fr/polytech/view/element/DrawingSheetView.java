@@ -2,6 +2,7 @@ package fr.polytech.view.element;
 
 import fr.polytech.model.DrawingSheet;
 import fr.polytech.model.element.Element;
+import fr.polytech.model.element.Obstacle;
 import fr.polytech.model.element.Segment;
 import fr.polytech.model.element.Turtle;
 import fr.polytech.view.element.ElementView;
@@ -41,6 +42,8 @@ public class DrawingSheetView extends JPanel implements Observer,ElementView{
                 new TurtleView((Turtle) elements.get(i)).draw(g);
             if(elements.get(i) instanceof Segment)
                 new SegmentView((Segment) elements.get(i)).draw(g);
+            if(elements.get(i) instanceof Obstacle)
+                new ObstacleView((Obstacle) elements.get(i)).draw(g);
         }
 
 
