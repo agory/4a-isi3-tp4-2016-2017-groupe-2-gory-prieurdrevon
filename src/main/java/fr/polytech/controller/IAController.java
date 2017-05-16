@@ -5,6 +5,7 @@ import fr.polytech.model.agent.Agent;
 import fr.polytech.model.agent.AgentRandom;
 import fr.polytech.model.element.ToroidalTurtle;
 import fr.polytech.model.element.Turtle;
+import fr.polytech.model.utils.FPSManager;
 import fr.polytech.view.IALayout;
 
 import java.awt.event.ActionEvent;
@@ -15,7 +16,7 @@ import java.util.Observer;
  */
 public class IAController extends Controller implements Observer {
 
-    private static int NBAGENT = 1;
+    private static int NBAGENT = 30;
 
     @Override
     protected void init() {
@@ -25,6 +26,14 @@ public class IAController extends Controller implements Observer {
         this.drawingSheet = toroidalDrawingSheet;
         this.layout = new IALayout(this, this.drawingSheet);
         this.startIA();
+        this.refreshActive();
+    }
+
+    private void refreshActive(){
+        FPSManager fpsManager = new FPSManager(30);
+        fpsManager.addObserver(this);
+        Thread thread = new Thread(fpsManager);
+        thread.start();
     }
 
     /**

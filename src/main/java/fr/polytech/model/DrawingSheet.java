@@ -1,6 +1,7 @@
 package fr.polytech.model;// package logo;
 
 import fr.polytech.model.element.Element;
+import fr.polytech.model.element.Obstacle;
 import fr.polytech.model.element.Segment;
 import fr.polytech.model.element.Turtle;
 
@@ -90,7 +91,7 @@ public class DrawingSheet extends Observable implements Observer {
     }
 
     public List<Turtle> getTurtles() {
-        List<Turtle> turtles = new ArrayList<>();
+        /*List<Turtle> turtles = new ArrayList<>();
         List<Element> elements = getElements();
         Element element;
         for (int i = 0; i < elements.size(); i++) {
@@ -99,6 +100,11 @@ public class DrawingSheet extends Observable implements Observer {
                 turtles.add((Turtle) element);
             }
         }
-        return turtles;
+        return turtles;*/
+        return elements.stream().filter(element -> (element instanceof Turtle)).map(element -> (Turtle) element).collect(Collectors.toList());
+    }
+
+    public List<Obstacle> getObstacles(){
+        return elements.stream().filter(element -> (element instanceof Obstacle)).map(element -> (Obstacle) element).collect(Collectors.toList());
     }
 }
