@@ -14,7 +14,7 @@ import java.util.*;
  * Created by gorya on 5/3/17.
  */
 public class AgentFlocking extends AgentRandom {
-    private static final int ANGLE = 0;
+    private static final int ANGLE = 90;
     private static final int DIST_MAX = 100;
     private static final int DIST_MIN = 10;
 
