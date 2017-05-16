@@ -6,6 +6,9 @@ import fr.polytech.model.element.Turtle;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.atan;
+
 /**
  * Created by gorya on 5/3/17.
  */
@@ -35,7 +38,7 @@ public class MinkFields {
 
         return turtles.entrySet().stream()
                 .filter(this::isVisibleTurtle)
-                .filter(this::checkAngle)
+//                .filter(this::checkAngle)
                 .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
     }
 
@@ -44,7 +47,40 @@ public class MinkFields {
     }
 
     private boolean checkAngle(Map.Entry<Turtle,Double> entry) {
-        return true;
+        int angle;
+        int x1 = this.turtle.getX();
+        int y1 = this.turtle.getY();
+        int x2 = entry.getKey().getX();
+        int y2 = entry.getKey().getY();
+        if (abs(x1-x2) > entry.getValue()){
+            if (x1 < x2){
+                x2 = x2 - this.sheet.getWidth();
+            }
+            else{
+                x2 = x2 + this.sheet.getWidth();
+            }
+        }
+        if (abs(y1-y2) > entry.getValue()){
+            if (y1 < y2){
+                y2 = y2 - this.sheet.getHeight();
+            }
+            else{
+                y2 = y2 + this.sheet.getHeight();
+            }
+        }
+        if (x1 == x2){
+            if (y1 < y2){
+                angle = 90;
+            }
+            else{
+                angle = -90;
+            }
+        }
+        else{
+            angle = (int) (180/Math.PI * atan((y2-y1)/(x2-x1)));
+        }
+
+        return (abs(angle - this.turtle.getDir()) < this.angle/2);
     }
 
 
