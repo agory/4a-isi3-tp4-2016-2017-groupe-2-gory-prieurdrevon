@@ -53,5 +53,11 @@ public abstract class Element extends Observable {
         this.setColor(colorService.nextColor(this.getColor()));
     }
 
+    public int getX() {
+        return (int)this.getOrigin().getX();
+    }
 
+    public int getY() {
+        return (int)this.getOrigin().getY();
+    }
 }

@@ -90,14 +90,6 @@ public class Turtle extends Element {
         return crayon;
     }
 
-    public int getX() {
-        return (int)this.getOrigin().getX();
-    }
-
-    public int getY() {
-        return (int)this.getOrigin().getY();
-    }
-
     public static double getRatioDegRad() {
         return ratioDegRad;
     }

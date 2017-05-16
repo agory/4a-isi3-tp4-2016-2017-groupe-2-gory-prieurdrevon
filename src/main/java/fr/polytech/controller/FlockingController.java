@@ -16,9 +16,12 @@ import java.util.Observer;
  */
 public class FlockingController extends IAController implements Observer {
 
-    private static int NBAGENT = 200;
+    private static int NBAGENT = 100;
 
     protected void startIA() {
+        Obstacle obstacle = new Obstacle(new Point(300,200),30);
+        obstacle.setColor(Color.RED);
+        this.drawingSheet.addElement(obstacle);
         ((ToroidalDrawingSheet)this.drawingSheet).drawLimit();
         for (int i = 0; i < NBAGENT; i++){
             launchIa();
@@ -28,9 +31,7 @@ public class FlockingController extends IAController implements Observer {
     @Override
     protected void init() {
         super.init();
-        Obstacle obstacle = new Obstacle(new Point(300,200),30);
-        obstacle.setColor(Color.RED);
-        this.drawingSheet.addElement(obstacle);
+
     }
 
     protected void launchIa() {

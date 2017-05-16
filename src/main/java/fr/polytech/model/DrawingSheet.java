@@ -105,6 +105,6 @@ public class DrawingSheet extends Observable implements Observer {
     }
 
     public List<Obstacle> getObstacles(){
-        return elements.stream().filter(element -> (element instanceof Obstacle)).map(element -> (Obstacle) element).collect(Collectors.toList());
+        return elements.stream().filter(element -> element instanceof Obstacle).map(element -> (Obstacle) element).collect(Collectors.toList());
     }
 }
