@@ -21,11 +21,12 @@ public class AgentFlocking extends AgentRandom {
 
     public AgentFlocking(DrawingSheet drawingSheet, Turtle turtle) {
         super(drawingSheet, turtle);
-        this.minkFields = new MinkFields((ToroidalDrawingSheet)drawingSheet,turtle,0,20,50);
+        this.minkFields = new MinkFields((ToroidalDrawingSheet)drawingSheet,turtle,0,50);
     }
 
     protected List<Action> compute() {
-        List<Turtle> turtles = minkFields.getVisibleTurtles();
+        List<Turtle> turtles = new ArrayList<>();
+        turtles.addAll(minkFields.getVisibleTurtles().keySet());
         if(turtles.size() > 0) {
             return flocking(turtles);
         } else

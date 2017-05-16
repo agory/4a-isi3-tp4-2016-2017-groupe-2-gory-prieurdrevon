@@ -3,8 +3,7 @@ package fr.polytech.model.agent;
 import fr.polytech.model.ToroidalDrawingSheet;
 import fr.polytech.model.element.Turtle;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -15,25 +14,48 @@ public class MinkFields {
     private Turtle turtle;
     private ToroidalDrawingSheet sheet;
     private int angle;
-    private int distanceMin;
     private int distanceMax;
 
-    public MinkFields(ToroidalDrawingSheet sheet, Turtle turtle,  int angle, int distanceMin,int distanceMax) {
+    public MinkFields(ToroidalDrawingSheet sheet, Turtle turtle, int angle, int distanceMax) {
         this.turtle = turtle;
         this.turtles = sheet.getTurtles().stream().filter(turtle1 -> !(turtle == turtle1)).collect(Collectors.toList());
         this.sheet = sheet;
         this.angle = angle;
-        this.distanceMin = distanceMin;
         this.distanceMax = distanceMax;
     }
 
-    public List getVisibleTurtles() {
-        return this.turtles.stream().filter(this::isVisibleTurtles).collect(Collectors.toList());
+    public Map<Turtle,Double> getVisibleTurtles() {
+        Map<Turtle,Double> turtles = new HashMap<>();
+
+
+        this.turtles.forEach(turtle -> {
+            OptionalDouble distOptional = computeDistanceEuclidienne(this.turtle, turtle).stream().mapToDouble((i) -> i).min();
+            if(distOptional.isPresent())
+                turtles.put(turtle,distOptional.getAsDouble());
+        });
+
+        return turtles.entrySet().stream().filter(this::isVisibleTurtle).collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
     }
 
-    private boolean isVisibleTurtles(Turtle turtle) {
-        double dist = Math.sqrt(Math.pow(this.turtle.getX() - turtle.getX(), 2) + Math.pow(this.turtle.getY() - turtle.getY(), 2));
-        return dist < distanceMax && dist > distanceMin;
+    private boolean isVisibleTurtle(Map.Entry<Turtle,Double> entry) {
+        return entry.getValue() < distanceMax;
+    }
+
+
+    private List<Double> computeDistanceEuclidienne(Turtle turtle, Turtle turtle1) {
+        List<Double> dists = new ArrayList<>();
+        // normal distance
+        dists.add(Math.sqrt(Math.pow(turtle.getX() - turtle1.getX(), 2) + Math.pow(turtle.getY() - turtle1.getY(), 2)));
+
+        // Toroidal distance axe X
+        dists.add(Math.sqrt(Math.pow(turtle.getX() - (turtle1.getX() + this.sheet.getWidth()), 2) + Math.pow(turtle.getY() - turtle1.getY(), 2)));
+
+        // Toroidal distance axe Y
+        dists.add(Math.sqrt(Math.pow(turtle.getX() - turtle1.getX(), 2) + Math.pow(turtle.getY() - (turtle1.getY() + this.sheet.getHeight()), 2)));
+
+        // Toroidal distance axe Y and X
+        dists.add(Math.sqrt(Math.pow(turtle.getX() - (turtle1.getX() + this.sheet.getWidth()), 2) + Math.pow(turtle.getY() - (turtle1.getY() + this.sheet.getHeight()), 2)));
+        return dists;
     }
 
 
