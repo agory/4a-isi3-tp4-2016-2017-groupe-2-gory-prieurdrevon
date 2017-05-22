@@ -15,8 +15,8 @@ import java.util.Random;
 /**
  * Created by gorya on 03/05/2017.
  */
-public class AgentRandom extends Agent{
-    public AgentRandom(DrawingSheet drawingSheet,Turtle turtle) {
+public class RandomAgent extends Agent{
+    public RandomAgent(DrawingSheet drawingSheet, Turtle turtle) {
         super(drawingSheet,turtle);
     }
 

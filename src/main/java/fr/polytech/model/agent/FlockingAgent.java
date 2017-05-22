@@ -6,6 +6,7 @@ import fr.polytech.model.agent.Action.Action;
 import fr.polytech.model.agent.Action.MoveForward;
 import fr.polytech.model.agent.Action.TurnLeft;
 import fr.polytech.model.agent.Action.TurnRight;
+import fr.polytech.model.agent.Minkfields.TurtleMinkfields;
 import fr.polytech.model.element.Obstacle;
 import fr.polytech.model.element.Turtle;
 
@@ -14,48 +15,27 @@ import java.util.*;
 /**
  * Created by gorya on 5/3/17.
  */
-public class AgentFlocking extends AgentRandom {
-    private static final int ANGLE = 90;
-    private static final int DIST_MAX = 100;
-    private static final int DIST_MIN = 10;
+public class FlockingAgent extends RandomAgent {
+    protected static final int ANGLE = 90;
+    protected static final int DIST_MAX = 30;
+    protected static final int DIST_MIN = 10;
 
-    private MinkFields minkFields;
+    private TurtleMinkfields minkFields;
 
-    public AgentFlocking(DrawingSheet drawingSheet, Turtle turtle) {
+    public FlockingAgent(DrawingSheet drawingSheet, Turtle turtle) {
         super(drawingSheet, turtle);
-        this.minkFields = new MinkFields((ToroidalDrawingSheet) drawingSheet, turtle, ANGLE, DIST_MAX);
+        this.minkFields = new TurtleMinkfields((ToroidalDrawingSheet) drawingSheet, turtle, ANGLE, DIST_MAX);
     }
 
     protected List<Action> compute() {
-
-        Map<Obstacle, Double> obstacleDoubleMap = this.minkFields.getVisibleObstacles();
-        if (obstacleDoubleMap.size() > 0) {
-            System.out.println("Obstacle");
-            return obstacleAvoid(obstacleDoubleMap);
-        }
-        Map<Turtle, Double> turtles = minkFields.getVisibleTurtles();
+        Map<Turtle, Double> turtles = minkFields.compute();
         if (turtles.size() > 0) {
             return flocking(turtles);
-        } else
-            return super.compute();
-    }
-
-    protected List<Action> obstacleAvoid(Map<Obstacle, Double> obstacleMap) {
-        List<Action> actions = new ArrayList<>();
-        // Test
-        Map.Entry entry = obstacleMap.entrySet().iterator().next();
-        int diff = this.turtle.getDir() - (int)entry.getValue();
-        if(diff < 0){
-          actions.add(new TurnLeft(90));
-        } else {
-            actions.add(new TurnRight(90));
         }
-        actions.add(new MoveForward(1));
-        return actions;
+        return super.compute();
     }
 
-
-    protected List<Action> flocking(Map<Turtle, Double> turtles) {
+    private List<Action> flocking(Map<Turtle, Double> turtles) {
         boolean slow = false;
         List<Action> actions = new ArrayList<>();
         Turtle turtle;

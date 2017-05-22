@@ -2,7 +2,7 @@ package fr.polytech.controller;
 
 import fr.polytech.model.ToroidalDrawingSheet;
 import fr.polytech.model.agent.Agent;
-import fr.polytech.model.agent.AgentRandom;
+import fr.polytech.model.agent.RandomAgent;
 import fr.polytech.model.element.ToroidalTurtle;
 import fr.polytech.model.element.Turtle;
 import fr.polytech.model.utils.FPSManager;
@@ -63,7 +63,7 @@ public class IAController extends Controller implements Observer {
         turtle.leverCrayon();
         turtle.droite(90);
         this.drawingSheet.addTortue(turtle);
-        Agent agent = new AgentRandom(this.drawingSheet,turtle);
+        Agent agent = new RandomAgent(this.drawingSheet,turtle);
         agent.addObserver(this);
         Thread thread = new Thread(agent);
         thread.start();

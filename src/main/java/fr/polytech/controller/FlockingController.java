@@ -2,8 +2,7 @@ package fr.polytech.controller;
 
 import fr.polytech.model.ToroidalDrawingSheet;
 import fr.polytech.model.agent.Agent;
-import fr.polytech.model.agent.AgentFlocking;
-import fr.polytech.model.agent.AgentRandom;
+import fr.polytech.model.agent.FlockingAgent;
 import fr.polytech.model.element.Obstacle;
 import fr.polytech.model.element.ToroidalTurtle;
 import fr.polytech.model.element.Turtle;
@@ -38,7 +37,7 @@ public class FlockingController extends IAController implements Observer {
         Turtle turtle = new ToroidalTurtle((ToroidalDrawingSheet) this.drawingSheet);
         turtle.leverCrayon();
         this.drawingSheet.addTortue(turtle);
-        Agent agent = new AgentFlocking(this.drawingSheet,turtle);
+        Agent agent = new FlockingAgent(this.drawingSheet,turtle);
         agent.addObserver(this);
         Thread thread = new Thread(agent);
         thread.start();
