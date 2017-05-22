@@ -16,12 +16,12 @@ public abstract class Element extends Observable {
         return origin;
     }
 
-    public void setOrigin(int x,int y) {
+    public synchronized void setOrigin(int x,int y) {
         setOrigin(new Point(x,y));
 
     }
 
-    public void setOrigin(Point origin) {
+    public synchronized void setOrigin(Point origin) {
         this.origin = origin;
         this.setChanged();
     }
@@ -34,12 +34,12 @@ public abstract class Element extends Observable {
         this.setColor(colorService.decode((new Random()).nextInt(11)));
     }
 
-    public void setColor(Color color) {
+    public synchronized void setColor(Color color) {
         this.color = color;
         this.setChanged();
     }
 
-    public void setColor(int colorNumber) {
+    public synchronized void setColor(int colorNumber) {
         ColorService colorService = ColorService.getInstance();
         this.setColor(colorService.decode(colorNumber));
     }

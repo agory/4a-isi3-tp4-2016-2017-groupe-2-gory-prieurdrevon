@@ -8,7 +8,8 @@ import fr.polytech.model.element.ToroidalTurtle;
 import fr.polytech.model.element.Turtle;
 
 import java.awt.*;
-import java.util.Observer;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by gorya on 03/05/2017.
@@ -16,31 +17,36 @@ import java.util.Observer;
 public class FlockingController extends IAController implements Observer {
 
     private static int NBAGENT = 100;
+    private List<Agent> agents;
+
 
     protected void startIA() {
         Obstacle obstacle = new Obstacle(new Point(300,200),30);
         obstacle.setColor(Color.RED);
         this.drawingSheet.addElement(obstacle);
         ((ToroidalDrawingSheet)this.drawingSheet).drawLimit();
+        this.agents = new ArrayList<>();
         for (int i = 0; i < NBAGENT; i++){
-            launchIa();
+            agents.add(createIa());
         }
+        agents.forEach(agent -> {
+            Thread thread = new Thread(agent);
+            thread.start();
+        });
     }
 
     @Override
     protected void init() {
         super.init();
-
     }
 
-    protected void launchIa() {
+    private Agent createIa() {
         Turtle turtle = new ToroidalTurtle((ToroidalDrawingSheet) this.drawingSheet);
         turtle.leverCrayon();
         this.drawingSheet.addTortue(turtle);
         Agent agent = new FlockingAgent(this.drawingSheet,turtle);
         agent.addObserver(this);
-        Thread thread = new Thread(agent);
-        thread.start();
+        return agent;
     }
 
 

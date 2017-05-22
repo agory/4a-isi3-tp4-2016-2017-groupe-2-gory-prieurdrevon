@@ -39,7 +39,7 @@ public abstract class Agent extends Observable implements Runnable {
             this.setChanged();
             //this.notifyObservers();
             try {
-                Thread.sleep(10);
+                Thread.sleep(20);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

@@ -28,7 +28,7 @@ public class ToroidalTurtle extends Turtle {
     }
 
     @Override
-    public Optional<Segment> avancer(int dist) {
+    public synchronized Optional<Segment> avancer(int dist) {
         int newX = (int) Math.round(this.getX() + dist * Math.cos(ratioDegRad * dir));
         int newY = (int) Math.round(this.getY() + dist * Math.sin(ratioDegRad * dir));
         Optional<Segment> segment = Optional.empty();
@@ -42,10 +42,5 @@ public class ToroidalTurtle extends Turtle {
         }
         this.setOrigin(MathTools.modulo(newX,drawingSheet.getWidth()),MathTools.modulo(newY,drawingSheet.getHeight()));
         return segment;
-    }
-
-    @Override
-    public void setOrigin(Point origin) {
-        super.setOrigin(origin);
     }
 }

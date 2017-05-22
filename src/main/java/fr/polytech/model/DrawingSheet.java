@@ -30,7 +30,7 @@ public class DrawingSheet extends Observable implements Observer {
 
     }
 
-    public void addTortue(Turtle turtle) {
+    public synchronized void addTortue(Turtle turtle) {
         this.addElement(turtle);
         turtle.addObserver(this);
     }
@@ -39,21 +39,21 @@ public class DrawingSheet extends Observable implements Observer {
         elements.clear();
     }
 
-    public void addElement(Element segment) {
+    public synchronized void addElement(Element segment) {
         this.elements.add(segment);
         this.setChanged();
     }
 
-    public void addElements(List<Element> segment) {
+    public synchronized void addElements(List<Element> segment) {
         this.elements.addAll(elements);
         this.setChanged();
     }
 
-    public void addSegment(Segment segment) {
+    public synchronized void addSegment(Segment segment) {
         this.addElement(segment);
     }
 
-    public void addSegments(List<Segment> segments) {
+    public synchronized void addSegments(List<Segment> segments) {
         this.elements.addAll(segments);
         this.setChanged();
     }

@@ -37,7 +37,7 @@ public class Turtle extends Element {
         crayon = true;
     }
 
-    public Optional<Segment> avancer(int dist) {
+    public synchronized Optional<Segment> avancer(int dist) {
         int newX = (int) Math.round(this.getX() + dist * Math.cos(ratioDegRad * dir));
         int newY = (int) Math.round(this.getY() + dist * Math.sin(ratioDegRad * dir));
         Optional<Segment> segment = Optional.empty();
@@ -52,16 +52,16 @@ public class Turtle extends Element {
         return segment;
     }
 
-    public void setDir(int dir) {
+    public synchronized void  setDir(int dir) {
         this.dir = dir;
         this.setChanged();
     }
 
-    public void droite(int ang) {
+    public synchronized void droite(int ang) {
         this.setDir((dir + ang) % 360);
     }
 
-    public void gauche(int ang) {
+    public synchronized void gauche(int ang) {
         this.setDir((dir - ang) % 360);
     }
 
