@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
  */
 public class TurtleMinkfields extends MinkFields<Turtle> {
     private List<Turtle> turtles;
+
     public TurtleMinkfields(ToroidalDrawingSheet sheet, Turtle turtle, int angle, int distanceMax) {
         super(sheet, turtle, angle, distanceMax);
         this.turtles = this.getElements().stream().filter(element -> (element instanceof Turtle)).map(element -> (Turtle) element).collect(Collectors.toList());
@@ -34,7 +35,7 @@ public class TurtleMinkfields extends MinkFields<Turtle> {
         });
 
         return turtles.entrySet().stream()
-                .filter(entry -> this.isVisibleTurtle(entry.getKey(),entry.getValue()))
+                .filter(entry -> this.isVisible(entry.getKey(),entry.getValue()))
 //                .filter(this::checkAngleTurtle)
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }

@@ -32,9 +32,11 @@ public class RandomAgent extends Agent{
                 break;
             case 1:
                 actions.add(new TurnLeft(3));
+                actions.add(new MoveForward(1));
                 break;
             case 2:
                 actions.add(new TurnRight(3));
+                actions.add(new MoveForward(1));
                 break;
             default:
                 actions.add(new MoveForward(0));

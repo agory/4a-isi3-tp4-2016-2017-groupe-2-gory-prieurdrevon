@@ -38,11 +38,11 @@ public abstract class MinkFields<T extends Element> {
     protected List<Double> computeDistanceEuclidienne(Element element1, Element element) {
         List<Double> dists = new ArrayList<>();
 
-        // Toroidal distance axe X
-        dists.add(Math.sqrt(Math.pow(element1.getX() - (element.getOrigin().getX() + this.sheet.getWidth()), 2) + Math.pow(element1.getY() - element.getOrigin().getY(), 2)));
-
         // normal distance
         dists.add(Math.sqrt(Math.pow(element1.getX() - element.getOrigin().getX(), 2) + Math.pow(element1.getY() - element.getOrigin().getY(), 2)));
+
+        // Toroidal distance axe X
+        dists.add(Math.sqrt(Math.pow(element1.getX() - (element.getOrigin().getX() + this.sheet.getWidth()), 2) + Math.pow(element1.getY() - element.getOrigin().getY(), 2)));
 
         // Toroidal distance axe Y
         dists.add(Math.sqrt(Math.pow(element1.getX() - element.getOrigin().getX(), 2) + Math.pow(element1.getY() - (element.getOrigin().getY() + this.sheet.getHeight()), 2)));
@@ -52,18 +52,14 @@ public abstract class MinkFields<T extends Element> {
         return dists;
     }
 
-    protected boolean isVisibleTurtle(Turtle turtle, double dist) {
+    protected boolean isVisible(Turtle turtle, double dist) {
         return dist < distanceMax;
     }
 
-    protected boolean checkAngle(Turtle turtle){
-        return (abs(computeAngle(turtle) - this.turtle.getDir()) < this.angle/2);
-    }
-
-    protected boolean isVisible(Obstacle element,double dist) {
-        OptionalDouble distOptional = computeDistanceEuclidienne(this.turtle, turtle).stream().mapToDouble((i) -> i).min();
+    protected boolean isVisible(Obstacle obstacle,double dist) {
+        OptionalDouble distOptional = computeDistanceEuclidienne(this.turtle, obstacle).stream().mapToDouble((i) -> i).min();
         if (distOptional.isPresent()) {
-            boolean test = distOptional.getAsDouble() < distanceMax + element.getDiameter() / 2;
+            boolean test = distOptional.getAsDouble() < distanceMax + obstacle.getDiameter() / 2;
             System.out.println(test);
             return test;
         }
@@ -71,8 +67,12 @@ public abstract class MinkFields<T extends Element> {
         return false;
     }
 
-    protected boolean checkAngl(Obstacle obstacle, double dist) {
+    protected boolean checkAngle(Obstacle obstacle, double dist) {
         return (abs(dist - this.turtle.getDir()) < asin(obstacle.getDiameter() / 2 / (this.distanceMax + obstacle.getDiameter() / 2)));
+    }
+
+    protected boolean checkAngle(Turtle turtle){
+        return (abs(computeAngle(turtle) - this.turtle.getDir()) < this.angle/2);
     }
 
     protected double computeAngle(Element obstacle) {

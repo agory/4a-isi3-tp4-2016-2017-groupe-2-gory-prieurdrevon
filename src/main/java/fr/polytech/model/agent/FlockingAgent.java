@@ -17,8 +17,8 @@ import java.util.*;
  */
 public class FlockingAgent extends RandomAgent {
     protected static final int ANGLE = 90;
-    protected static final int DIST_MAX = 30;
-    protected static final int DIST_MIN = 10;
+    protected static final int DIST_MAX = 10;
+    protected static final int DIST_MIN = 5;
 
     private TurtleMinkfields minkFields;
 
@@ -30,6 +30,7 @@ public class FlockingAgent extends RandomAgent {
     protected List<Action> compute() {
         Map<Turtle, Double> turtles = minkFields.compute();
         if (turtles.size() > 0) {
+            System.out.println(turtles.size());
             return flocking(turtles);
         }
         return super.compute();
