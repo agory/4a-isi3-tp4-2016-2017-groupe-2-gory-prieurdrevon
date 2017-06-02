@@ -9,18 +9,18 @@
 
 ![diagram](images/diagram1.png)
 
-Probléme lié au code :
+Problèmes liés au code :
 
     - Plusieurs classes par fichier : 
-        + **Tortue.class** -> 2 classe Tortue and segment dans le même fichier (à séparer)
-    - Methode trop longue : 
+        + **Tortue.class** -> 2 classes Tortue et segment dans le même fichier (à séparer)
+    - Méthode trop longue : 
         + SimpleLogo logoInit (à diviser)
-        + SimpleLogo actionPerformed if imbriqué remplacement possible switch case
+        + SimpleLogo actionPerformed if imbriqué, remplacement possible par un switch case
     
-Probléme lié à la structure de code :
+Problème lié à la structure de code :
 
     - Responsabilité unique :
-        +  Les classes gérent à la fois la logique metier et d'affichage
+        +  Les classes gérent à la fois la logique métier et d'affichage
             -> Solution utilisation du model MVC
         + Simple Logo jouent le rôle de controller et de view
    
@@ -38,10 +38,12 @@ Probléme lié à la structure de code :
 
 
 ## Question 5
-Pour implementer les agents aléatoires, j'ai choisi que l'agent soit une entité indépendante, c'est à dire il est dans sa propre thread et agit tous les certains laps de temps. Il s'agit de la classe Abstrait Agent qui ne gère que la partie Thread. Cette classe dispose d'une méthode abstrait compute afin de pouvoir implémenter le comportement de l'agent.
+Pour implémenter les agents aléatoires, j'ai choisi que l'agent soit une entité indépendante, c'est-à-dire qu'il est
+dans son propre thread et agit tous les certains laps de temps. Il s'agit de la classe abstraite Agent qui ne gère que
+la partie Thread. Cette classe dispose d'une méthode abstraite *compute* afin de pouvoir implémenter le comportement de l'agent.
 ![diagram](images/agent.png)
 
-Par la suite j'ai crée une classe RandomAgent qui implémente les décisions aléatoire de l'agent.
+Par la suite j'ai crée une classe RandomAgent qui implémente les décisions aléatoires de l'agent.
 ```java 
  protected List<Action> compute() {
         Random random = new Random();
@@ -72,27 +74,33 @@ Par la suite j'ai crée une classe RandomAgent qui implémente les décisions al
 ## Question 6
 
 
-Pour réaliser le flocking, j'ai réalisé un héritage avec  RandomAgent pour garder le comportement précédent lorsqu'il y a aucune tortue proche. Cette nouvelle classe FlockingAgent a un comportement qui ce modifie si des tortues sont proches. Lorsque l'agent détecte des tortues voisins, elle met à jour ça direction pour avoir la moyenne de la direction de tous les voisins.
+Pour réaliser le flocking, j'ai réalisé un héritage avec  RandomAgent pour garder le comportement précédent lorsqu'il
+n'y a aucune tortue proche. Cette nouvelle classe FlockingAgent a un comportement qui ce modifie si des tortues sont
+proches. Lorsque l'agent détecte des tortues voisins, elle met à jour ça direction pour avoir la moyenne de la direction
+de tous les voisins.
 
-Pour détecter les voisin, j'ai crée un classe TurtleMinkfields qui est du coups un composant de FlockingAgent. Ce composant permet de recupérer les tortues proches. 
+Pour détecter les voisin, j'ai créé un classe TurtleMinkfields qui est du coup un composant de FlockingAgent. Ce
+composant permet de recupérer les tortues proches. 
 
 ![diagram](images/diagramFlock.png)
 
 
-Pour récupérer les tortues proches je calcule la distance euclidienne en prennant en compte les envirronements toroidal. 
+Pour récupérer les tortues proches je calcule la distance euclidienne en prennant en compte l'environement toroïdal. 
 
 
 ## Implémentation des obstacles
 
-Pour implémenter l'évitement d'obstacle, j'ai crée une classe ObstacleMinkfields qui permet de détecter les obstacles.
+Pour implémenter l'évitement d'obstacles, j'ai créé une classe ObstacleMinkfields qui permet de détecter les obstacles.
 
-De plus, j'ai crée une classe AvoidingAgent qui ajoute les comportements d'évitement d'obstacle. Lorsqu'il n'y a pas d'obstacle, le comportement flocking est appliquer.
+De plus, j'ai crée une classe AvoidingAgent qui ajoute les comportements d'évitement d'obstacles. Lorsqu'il n'y a pas
+d'obstacles, le comportement de flocking est appliqué.
  
  ![diagram](images/avoidingAgent.png)
 
- ## Fonctionnalités bonus implémentées bugger
+ ## Fonctionnalités bonus implémentées bugguées
  
- Nous avons essayer d'implémenter un angle vision pour éviter que les agents soit influencé par les agents derrière lui. Cependant, il y a de nombreux bug la concernat, elle est donc désactivée dans le projet
+ Nous avons essayer d'implémenter un angle de vision afin d'éviter que les agents ne soient influencés par les agents
+ derrière eux. Cependant, il y a de nombreux bugs concernant cette fonctionnalité, elle est donc désactivée dans le projet.
  
 
 
