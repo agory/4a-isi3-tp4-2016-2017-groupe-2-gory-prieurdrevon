@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class FlockingController extends IAController implements Observer {
 
-    private static int NBAGENT = 10;
+    private static int NBAGENT = 100;
     private List<Agent> agents;
 
 
@@ -42,6 +42,8 @@ public class FlockingController extends IAController implements Observer {
 
     private Agent createIa() {
         Turtle turtle = new ToroidalTurtle((ToroidalDrawingSheet) this.drawingSheet);
+        Random rand = new Random();
+        turtle.droite(rand.nextInt(360));
         turtle.leverCrayon();
         this.drawingSheet.addTortue(turtle);
         Agent agent = new FlockingAgent(this.drawingSheet,turtle);

@@ -60,7 +60,6 @@ public abstract class MinkFields<T extends Element> {
         OptionalDouble distOptional = computeDistanceEuclidienne(this.turtle, obstacle).stream().mapToDouble((i) -> i).min();
         if (distOptional.isPresent()) {
             boolean test = distOptional.getAsDouble() < distanceMax + obstacle.getDiameter() / 2;
-            System.out.println(test);
             return test;
         }
         System.out.println("bug : " + false);

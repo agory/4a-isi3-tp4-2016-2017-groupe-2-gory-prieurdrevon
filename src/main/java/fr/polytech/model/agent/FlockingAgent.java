@@ -30,7 +30,6 @@ public class FlockingAgent extends RandomAgent {
     protected List<Action> compute() {
         Map<Turtle, Double> turtles = minkFields.compute();
         if (turtles.size() > 0) {
-            System.out.println(turtles.size());
             return flocking(turtles);
         }
         return super.compute();
@@ -55,7 +54,8 @@ public class FlockingAgent extends RandomAgent {
             actions.add(new TurnRight(diff));
         else
             actions.add(new TurnLeft(-diff));
-        actions.add(new MoveForward((slow) ? 1 : 2));
+
+        actions.add(new MoveForward((slow) ? 1 : 3));
 
         return actions;
     }

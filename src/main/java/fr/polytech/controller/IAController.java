@@ -61,7 +61,7 @@ public class IAController extends Controller implements Observer {
     protected void launchIa() {
         Turtle turtle = new ToroidalTurtle((ToroidalDrawingSheet) this.drawingSheet);
         turtle.leverCrayon();
-        turtle.droite(90);
+        turtle.droite(180);
         this.drawingSheet.addTortue(turtle);
         Agent agent = new RandomAgent(this.drawingSheet,turtle);
         agent.addObserver(this);
