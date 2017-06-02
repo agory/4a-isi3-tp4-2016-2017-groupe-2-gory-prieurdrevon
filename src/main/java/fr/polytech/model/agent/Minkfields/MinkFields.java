@@ -35,7 +35,7 @@ public abstract class MinkFields<T extends Element> {
     public abstract Map<T,Double> compute();
 
 
-    protected List<Double> computeDistanceEuclidienne(Element element1, Element element) {
+    protected List<Double> computeDistanceEuclidienneToroidal(Element element1, Element element) {
         List<Double> dists = new ArrayList<>();
 
         // normal distance
@@ -51,6 +51,13 @@ public abstract class MinkFields<T extends Element> {
         dists.add(Math.sqrt(Math.pow(element1.getX() - (element.getOrigin().getX() + this.sheet.getWidth()), 2) + Math.pow(element1.getY() - (element.getOrigin().getY() + this.sheet.getHeight()), 2)));
         return dists;
     }
+
+    protected Double computeDistanceEuclidienne(Element element1, Element element) {
+        // normal distance
+        return Math.sqrt(Math.pow(element1.getX() - element.getOrigin().getX(), 2) + Math.pow(element1.getY() - element.getOrigin().getY(), 2));
+    }
+
+
 
 
 

@@ -17,17 +17,24 @@ import java.util.List;
  */
 public class FlockingController extends IAController implements Observer {
 
-    private static int NBAGENT = 600;
+    private static int NBAGENT = 50;
     private List<Agent> agents;
 
 
     protected void startIA() {
-        Obstacle obstacle = new Obstacle(new Point(300,200),30);
-        obstacle.setColor(Color.RED);
-        this.drawingSheet.addElement(obstacle);
-        ((ToroidalDrawingSheet)this.drawingSheet).drawLimit();
+        Obstacle obstacle = null;
+        Random rand = new Random();
+        for (int i = 0; i < 3; i++) {
+            obstacle = new Obstacle(
+                    new Point(rand.nextInt(((ToroidalDrawingSheet) this.drawingSheet).getWidth()),
+                            rand.nextInt(((ToroidalDrawingSheet) this.drawingSheet).getHeight())),
+                    40);
+            obstacle.setColor(Color.RED);
+            this.drawingSheet.addElement(obstacle);
+        }
+        ((ToroidalDrawingSheet) this.drawingSheet).drawLimit();
         this.agents = new ArrayList<>();
-        for (int i = 0; i < NBAGENT; i++){
+        for (int i = 0; i < NBAGENT; i++) {
             agents.add(createIa());
         }
         agents.forEach(agent -> {
@@ -47,7 +54,7 @@ public class FlockingController extends IAController implements Observer {
         turtle.droite(rand.nextInt(360));
         turtle.leverCrayon();
         this.drawingSheet.addTortue(turtle);
-        Agent agent = new AvoidingAgent(this.drawingSheet,turtle);
+        Agent agent = new AvoidingAgent(this.drawingSheet, turtle);
         agent.addObserver(this);
         return agent;
     }

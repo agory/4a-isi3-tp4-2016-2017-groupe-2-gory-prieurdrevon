@@ -27,19 +27,24 @@ public class ObstacleMinkfiels extends MinkFields<Obstacle> {
         Map<Obstacle, Double> obstacles = new HashMap<>();
 
         this.getObstacles().forEach(obstacle -> {
-            OptionalDouble distOptional = computeDistanceEuclidienne(this.turtle, obstacle).stream().mapToDouble((i) -> i).min();
-            if (distOptional.isPresent())
-                obstacles.put(obstacle, distOptional.getAsDouble());
+            obstacles.put(obstacle, computeDistanceEuclidienne(this.turtle, obstacle));
         });
 
         return obstacles.entrySet().stream()
+                .map(entry -> {
+                    entry.setValue(this.computeDiffBeforeCollision(entry.getKey(), entry.getValue()));
+                    return entry;
+                })
                 .filter(entry -> this.isVisible(entry.getKey(), entry.getValue()))
                 //.filter(entry -> this.checkAngle(entry.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     protected boolean isVisible(Obstacle obstacle, double dist) {
-        return dist < distanceMax + obstacle.getDiameter() / 2;
+        return dist < distanceMax;
     }
 
+    protected double computeDiffBeforeCollision(Obstacle obstacle, double dist) {
+        return dist - (obstacle.getDiameter() / 2);
+    }
 }

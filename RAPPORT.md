@@ -36,20 +36,65 @@ Probléme lié à la structure de code :
 ## Question 4
 *Rien à rédiger*
 
+
 ## Question 5
-*Expliquer le code ajouté et représenter le patron de conception*
+Pour implementer les agents aléatoires, j'ai choisi que l'agent soit une entité indépendante, c'est à dire il est dans sa propre thread et agit tous les certains laps de temps. Il s'agit de la classe Abstrait Agent qui ne gère que la partie Thread. Cette classe dispose d'une méthode abstrait compute afin de pouvoir implémenter le comportement de l'agent.
+![diagram](images/agent.png)
+
+Par la suite j'ai crée une classe RandomAgent qui implémente les décisions aléatoire de l'agent.
+```java 
+ protected List<Action> compute() {
+        Random random = new Random();
+        List<Action> actions = new ArrayList<>();
+        int number = random.nextInt(3);
+        if(number > 3)
+            number = 0;
+        switch (number) {
+            case 0:
+                actions.add(new MoveForward(1));
+                break;
+            case 1:
+                actions.add(new TurnLeft(3));
+                actions.add(new MoveForward(1));
+                break;
+            case 2:
+                actions.add(new TurnRight(3));
+                actions.add(new MoveForward(1));
+                break;
+            default:
+                actions.add(new MoveForward(0));
+                break;
+        }
+        return actions;
+    }
+```
 
 ## Question 6
-*Rien à rédiger*
 
-## Question 7
-*Rien à rédiger*
 
-## Question 8
-*Expliquer l'intérêt du mock*
+Pour réaliser le flocking, j'ai réalisé un héritage avec  RandomAgent pour garder le comportement précédent lorsqu'il y a aucune tortue proche. Cette nouvelle classe FlockingAgent a un comportement qui ce modifie si des tortues sont proches. Lorsque l'agent détecte des tortues voisins, elle met à jour ça direction pour avoir la moyenne de la direction de tous les voisins.
 
-## Question 9
-*Montrer les résultats de vos rapports d'analyse*
+Pour détecter les voisin, j'ai crée un classe TurtleMinkfields qui est du coups un composant de FlockingAgent. Ce composant permet de recupérer les tortues proches. 
 
-## Question 10
-*Rien à rédiger*
+![diagram](images/diagramFlock.png)
+
+
+Pour récupérer les tortues proches je calcule la distance euclidienne en prennant en compte les envirronements toroidal. 
+
+
+## Implémentation des obstacles
+
+Pour implémenter l'évitement d'obstacle, j'ai crée une classe ObstacleMinkfields qui permet de détecter les obstacles.
+
+De plus, j'ai crée une classe AvoidingAgent qui ajoute les comportements d'évitement d'obstacle. Lorsqu'il n'y a pas d'obstacle, le comportement flocking est appliquer.
+ 
+ ![diagram](images/avoidingAgent.png)
+
+ ## Fonctionnalités bonus implémentées bugger
+ 
+ Nous avons essayer d'implémenter un angle vision pour éviter que les agents soit influencé par les agents derrière lui. Cependant, il y a de nombreux bug la concernat, elle est donc désactivée dans le projet
+ 
+
+
+
+

@@ -23,12 +23,14 @@ public class Turtle extends Element {
     protected static final double ratioDegRad = 0.0174533; // Rapport radians/degres (pour la conversion)
     protected int dir;
     protected boolean crayon;
+    protected boolean avoidingMode;
 
 
     public Turtle() {
         this.setOrigin(0,0);
         dir = -90;
         crayon = true;
+        avoidingMode = false;
     }
 
     public void reset() {
@@ -94,5 +96,12 @@ public class Turtle extends Element {
         return ratioDegRad;
     }
 
+    public boolean isAvoidingMode() {
+        return avoidingMode;
+    }
+
+    public void setAvoidingMode(boolean avoidingMode) {
+        this.avoidingMode = avoidingMode;
+    }
 }
 

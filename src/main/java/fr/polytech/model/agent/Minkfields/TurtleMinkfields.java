@@ -27,13 +27,14 @@ public class TurtleMinkfields extends MinkFields<Turtle> {
         Map<Turtle, Double> turtles = new HashMap<>();
 
         this.getTurtles().forEach(turtle -> {
-            OptionalDouble distOptional = computeDistanceEuclidienne(this.turtle, turtle).stream().mapToDouble((i) -> i).min();
+            OptionalDouble distOptional = computeDistanceEuclidienneToroidal(this.turtle, turtle).stream().mapToDouble((i) -> i).min();
             if (distOptional.isPresent())
                 turtles.put(turtle, distOptional.getAsDouble());
         });
 
         return turtles.entrySet().stream()
                 .filter(entry -> this.isVisible(entry.getKey(),entry.getValue()))
+                .filter(entry -> !entry.getKey().isAvoidingMode())
                 //.filter(entry -> this.checkAngle(entry.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
