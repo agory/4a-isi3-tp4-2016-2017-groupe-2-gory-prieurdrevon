@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class FlockingController extends IAController implements Observer {
 
-    private static int NBAGENT = 100;
+    private static int NBAGENT = 10;
     private List<Agent> agents;
 
 

@@ -34,7 +34,7 @@ public class TurtleMinkfields extends MinkFields<Turtle> {
 
         return turtles.entrySet().stream()
                 .filter(entry -> this.isVisible(entry.getKey(),entry.getValue()))
-                .filter(entry -> this.checkAngle(entry.getKey()))
+                //.filter(entry -> this.checkAngle(entry.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
