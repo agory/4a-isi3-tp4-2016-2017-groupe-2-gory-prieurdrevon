@@ -37,4 +37,9 @@ public class TurtleMinkfields extends MinkFields<Turtle> {
                 //.filter(entry -> this.checkAngle(entry.getKey()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
+
+    protected boolean isVisible(Turtle turtle, double dist) {
+        return dist < distanceMax;
+    }
+
 }

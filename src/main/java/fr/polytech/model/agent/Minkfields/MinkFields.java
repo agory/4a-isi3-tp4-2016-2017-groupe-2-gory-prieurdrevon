@@ -17,9 +17,9 @@ import static java.lang.Math.*;
  */
 public abstract class MinkFields<T extends Element> {
     protected Turtle turtle;
-    private ToroidalDrawingSheet sheet;
-    private int angle;
-    private int distanceMax;
+    protected ToroidalDrawingSheet sheet;
+    protected int angle;
+    protected int distanceMax;
 
     public MinkFields(ToroidalDrawingSheet sheet, Turtle turtle, int angle, int distanceMax) {
         this.turtle = turtle;
@@ -52,19 +52,8 @@ public abstract class MinkFields<T extends Element> {
         return dists;
     }
 
-    protected boolean isVisible(Turtle turtle, double dist) {
-        return dist < distanceMax;
-    }
 
-    protected boolean isVisible(Obstacle obstacle,double dist) {
-        OptionalDouble distOptional = computeDistanceEuclidienne(this.turtle, obstacle).stream().mapToDouble((i) -> i).min();
-        if (distOptional.isPresent()) {
-            boolean test = distOptional.getAsDouble() < distanceMax + obstacle.getDiameter() / 2;
-            return test;
-        }
-        System.out.println("bug : " + false);
-        return false;
-    }
+
 
     protected boolean checkAngle(Obstacle obstacle, double dist) {
         return (abs(dist - this.turtle.getDir()) < asin(obstacle.getDiameter() / 2 / (this.distanceMax + obstacle.getDiameter() / 2)));

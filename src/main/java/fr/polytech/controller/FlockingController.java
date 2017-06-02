@@ -2,6 +2,7 @@ package fr.polytech.controller;
 
 import fr.polytech.model.ToroidalDrawingSheet;
 import fr.polytech.model.agent.Agent;
+import fr.polytech.model.agent.AvoidingAgent;
 import fr.polytech.model.agent.FlockingAgent;
 import fr.polytech.model.element.Obstacle;
 import fr.polytech.model.element.ToroidalTurtle;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class FlockingController extends IAController implements Observer {
 
-    private static int NBAGENT = 100;
+    private static int NBAGENT = 600;
     private List<Agent> agents;
 
 
@@ -46,7 +47,7 @@ public class FlockingController extends IAController implements Observer {
         turtle.droite(rand.nextInt(360));
         turtle.leverCrayon();
         this.drawingSheet.addTortue(turtle);
-        Agent agent = new FlockingAgent(this.drawingSheet,turtle);
+        Agent agent = new AvoidingAgent(this.drawingSheet,turtle);
         agent.addObserver(this);
         return agent;
     }

@@ -17,8 +17,8 @@ import java.util.*;
  */
 public class FlockingAgent extends RandomAgent {
     protected static final int ANGLE = 90;
-    protected static final int DIST_MAX = 40;
-    protected static final int DIST_MIN = 10;
+    protected static final int DIST_MAX = 100;
+    protected static final int DIST_MIN = 20;
 
     private TurtleMinkfields minkFields;
 

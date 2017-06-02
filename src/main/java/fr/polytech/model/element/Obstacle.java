@@ -16,4 +16,5 @@ public class Obstacle extends Element {
     public int getDiameter() {
         return diameter;
     }
+
 }
