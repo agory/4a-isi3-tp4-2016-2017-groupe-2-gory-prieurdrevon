@@ -57,8 +57,7 @@ public class AvoidingAgent extends FlockingAgent {
         if(min < 0) {
             actions.add(new TurnLeft(90));
             actions.add(new MoveForward(126));
-            System.out.println(min);
-
+            //System.out.println(min);
         }
 
         return actions;
